@@ -4,17 +4,17 @@
 			<view class="navbar">
 				<view class="app-name">快聊</view>
 				<view class="app-operate">
-					<u-icon name="plus-circle" size="50"></u-icon>
+					<u-icon name="plus-circle" size="50" />
 				</view>
 			</view>
 		</u-navbar>
 		<view class="main">
-			<u-search height="70" :show-action="false" :disabled="true"></u-search>
+			<u-search height="70" :show-action="false" :disabled="true" />
 			<view class="list">
 				<view class="list-item" v-for="(item, index) in list" :key="index">
 					<view class="avatar">
 						<image :src="item.userInfo.avatar" class="image">
-						<u-badge type="error" count="7" :offset="[-6, -6]" />
+						<u-badge type="error" count="7" :offset="[-10, -10]" />
 					</view>
 					<view class="content">
 						<view class="name">{{item.userInfo.name}}</view>
@@ -36,21 +36,21 @@ export default class Me extends Vue {
 	list = [{
 		message: {
 			text: '嗯嗯，好的，知道了~',
-			time: '12:36'
+			time: '12:36',
 		},
 		userInfo: {
 			avatar: 'https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/5.jpg',
 			name: '小白杨',
-		}
+		},
 	}, {
 		message: {
 			text: '快回家快回家快回家快回家快回家快回家快回家快回家快回家快回家',
-			time: '10:00'
+			time: '10:00',
 		},
 		userInfo: {
 			avatar: 'https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/4.jpg',
 			name: '楠宝宝',
-		}
+		},
 	}];
 
   onLoad() {
@@ -91,7 +91,7 @@ export default class Me extends Vue {
 			.list-item {
 				display: flex;
 				align-items: center;
-				margin-top: 24rpx;
+				margin-top: 30rpx;
 				.avatar {
 					position: relative;
 					width: 84rpx;
@@ -100,17 +100,18 @@ export default class Me extends Vue {
 					.image {
 						width: 100%;
 						height: 100%;
-						border-radius: 50%;
+						border-radius: 10%;
 					}
 				}
 				.content {
 					flex: 1;
 					.name {
-						font-size: 30rpx;
+						font-size: 28rpx;
 						color: #333;
 					}
 					.message {
 						@extend .line-1;
+						font-size: 24rpx;
 						color: #999;
 					}
 				}

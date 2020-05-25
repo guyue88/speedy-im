@@ -28,7 +28,9 @@
 		}, {
 			"path": "pages/address-book/index",
 			"style": {
-				"navigationBarTitleText": "通讯录"
+				"navigationBarTitleText": "通讯录",
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "white"
 			}
 		}
 	],
