@@ -8,9 +8,13 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@hyoga/uni-socket.io": "^1.0.1",
+    "uview-ui": "^1.2.8",
     "vue-class-component": "^7.2.3"
+  },
+  "devDependencies": {
+    "vue": "^2.6.11"
   }
 }

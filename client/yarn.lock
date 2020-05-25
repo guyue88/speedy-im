@@ -198,10 +198,20 @@ to-array@0.1.4:
   resolved "https://registry.yarnpkg.com/to-array/-/to-array-0.1.4.tgz#17e6c11f73dd4f3d74cda7a4ff3238e9ad9bf890"
   integrity sha1-F+bBH3PdTz10zaek/zI46a2b+JA=
 
+uview-ui@^1.2.8:
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/uview-ui/-/uview-ui-1.2.8.tgz#cf9e43dbcf58445f5c2adb16defa6bb5e2f16f06"
+  integrity sha512-GfEMUS8XfYR07iLpUUnDEMEb1EJOnLEuJ5ZH0DFGBjJnClz0R+v/SYfvW3XRZN9+a7PLc8rIwOj+DYkdj20VuQ==
+
 vue-class-component@^7.2.3:
   version "7.2.3"
   resolved "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-7.2.3.tgz#a5b1abd53513a72ad51098752e2dedd499807cca"
   integrity sha512-oEqYpXKaFN+TaXU+mRLEx8dX0ah85aAJEe61mpdoUrq0Bhe/6sWhyZX1JjMQLhVsHAkncyhedhmCdDVSasUtDw==
+
+vue@^2.6.11:
+  version "2.6.11"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
+  integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==
 
 ws@~6.1.0:
   version "6.1.4"

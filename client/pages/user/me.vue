@@ -1,5 +1,5 @@
 <template>
-  <view>aa</view>
+  <view>me</view>
 </template>
 
 <script>
@@ -7,7 +7,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component';
 
 @Component({})
-export default class Login extends Vue {
+export default class Me extends Vue {
   onLoad() {
 
   }
