@@ -8,7 +8,23 @@
 			"style": {
 				"navigationBarTitleText": "消息",
 				"navigationStyle": "custom",
-				"navigationBarTextStyle": "white"
+				"app-plus": {
+					"subNVues":[{
+						"id": "menu",
+						"path": "platform/app-plus/subNVue/menu.nvue",
+						"type": "popup",
+						"style": {
+							"position": "absolute",
+							"mask": "rgba(0, 0, 0, .2)",
+							"top": "0px",
+							"left": "0px",
+							"right": "0px",
+							"bottom": "0px",
+							"zindex": 2000,
+							"background": "transparent"
+						}
+					}]
+				}
 			}
 		}, {
 			"path": "pages/chat/chat",
@@ -30,21 +46,37 @@
 			"style": {
 				"navigationBarTitleText": "通讯录",
 				"navigationStyle": "custom",
-				"navigationBarTextStyle": "white"
+				"app-plus": {
+					"subNVues":[{
+						"id": "menu",
+						"path": "platform/app-plus/subNVue/menu.nvue",
+						"type": "popup",
+						"style": {
+							"position": "absolute",
+							"mask": "rgba(0, 0, 0, .2)",
+							"top": "0px",
+							"left": "0px",
+							"right": "0px",
+							"bottom": "0px",
+							"zindex": 2000,
+							"background": "transparent"
+						}
+					}]
+				}
 			}
 		}
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "white",
+		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "IM",
-		"navigationBarBackgroundColor": "#1441B8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarBackgroundColor": "#F7F7F7",
+		"backgroundColor": "#F7F7F7"
 	},
 	"tabBar": {
     "color": "#666666",
     "selectedColor": "#1441B8",
     "borderStyle": "black",
-    "backgroundColor": "#F8F8F8",
+    "backgroundColor": "#F7F7F7",
     "list": [
       {
         "pagePath": "pages/chat/list",

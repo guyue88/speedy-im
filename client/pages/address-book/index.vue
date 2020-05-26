@@ -1,10 +1,10 @@
 <template>
   <view class="container">
-		<u-navbar :is-back="false" title="">
+		<u-navbar :is-back="false" title="" :background="{ backgroundColor: '#F8F8F8' }">
 			<view class="navbar">
         <view class="app-name">通讯录</view>
         <view class="app-operate">
-          <u-icon name="plus-circle" size="50" />
+          <u-icon name="plus-circle" size="50" @click="showMenu" />
         </view>
       </view>
 		</u-navbar>
@@ -14,16 +14,28 @@
 	</view>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue';
-import Component from 'vue-class-component';
 
-@Component({})
-export default class AddressBook extends Vue {
-  onLoad() {
+declare let uni: any;
 
-  }
-}
+export default Vue.extend({
+  name: 'ChatList',
+	data() {
+		return {
+
+		}
+	},
+	methods: {
+		showMenu() {
+			const subNVue = uni.getSubNVueById('menu');
+			subNVue.show('fade-in', 300, function(){});
+			uni.$once('menu-hide', () => {
+				subNVue.hide('fade-out', 300);
+			});
+		}
+	}
+});
 </script>
 
 <style lang="scss">

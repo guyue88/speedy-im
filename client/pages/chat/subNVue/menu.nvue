@@ -1,0 +1,49 @@
+<template>
+  <view class="layer" @click="hideLayer">
+    <view class="menu" @click.stop="">
+      <text>扫一扫大萨达撒所大扫一扫大萨达撒所大扫一扫大萨达撒所大扫一扫大萨达撒所大扫一扫大萨达撒所大</text>
+    </view>
+  </view>
+</template>
+
+<script>
+export default {
+  name: 'Menu',
+	methods: {
+		hideLayer() {
+      this.$emit('onHide');
+    }
+	}
+};
+</script>
+
+<style lang="scss">
+.layer {
+  position: relative;
+  color: #000;
+  font-size: 2000rpx;
+  .menu {
+    position: absolute;
+    top: calc(var(--status-bar-height) + 55px);
+    right: 20rpx;
+    background-color: #1d1919;
+    padding: 24rpx;
+    border-radius: 12rpx;
+    font-size: 26rpx;
+    color: #fff;
+    transition: all .2s;
+
+    &::before {
+      content: " ";
+      position: absolute;
+      top: -38rpx;
+      right: 14rpx;
+      border: 20rpx solid transparent;
+      border-bottom: 20rpx solid #1d1919;
+      width: 0;
+      height: 0;
+    }
+  }
+}
+
+</style>

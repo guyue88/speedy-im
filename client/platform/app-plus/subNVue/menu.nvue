@@ -1,0 +1,44 @@
+<template>
+  <view class="layer" @click="hideLayer">
+    <image class="prefix" src="@/static/triangle.png" />
+    <view class="menu" @click.stop="">
+      <text class="text">扫一扫</text>
+    </view>
+  </view>
+</template>
+
+<script>
+export default {
+  name: 'Menu',
+	methods: {
+		hideLayer() {
+      uni.$emit('menu-hide', {});
+    }
+	}
+};
+</script>
+
+<style>
+.layer {
+  position: relative;
+}
+.text {
+  font-size: 26rpx;
+  color: #fff;
+}
+.menu {
+  position: absolute;
+  top: 200rpx;
+  right: 20rpx;
+  background-color: #1d1919;
+  padding: 24rpx;
+  border-radius: 12rpx;
+}
+.prefix {
+  position: absolute;
+  top: 178rpx;
+  right: 40rpx;
+  width: 30rpx;
+  height: 30rpx;
+}
+</style>

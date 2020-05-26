@@ -1,10 +1,10 @@
 <template>
   <view class="container">
-		<u-navbar :is-back="false" title="">
+		<u-navbar :is-back="false" title="" :background="{ backgroundColor: '#F8F8F8' }">
 			<view class="navbar">
 				<view class="app-name">快聊</view>
 				<view class="app-operate">
-					<u-icon name="plus-circle" size="50" />
+					<u-icon name="plus-circle" size="50" @click="showMenu" />
 				</view>
 			</view>
 		</u-navbar>
@@ -27,36 +27,46 @@
 	</view>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue';
-import Component from 'vue-class-component';
 
-@Component({})
-export default class Me extends Vue {
-	list = [{
-		message: {
-			text: '嗯嗯，好的，知道了~',
-			time: '12:36',
-		},
-		userInfo: {
-			avatar: 'https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/5.jpg',
-			name: '小白杨',
-		},
-	}, {
-		message: {
-			text: '快回家快回家快回家快回家快回家快回家快回家快回家快回家快回家',
-			time: '10:00',
-		},
-		userInfo: {
-			avatar: 'https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/4.jpg',
-			name: '楠宝宝',
-		},
-	}];
+declare let uni: any;
 
-  onLoad() {
-
-  }
-}
+export default Vue.extend({
+  name: 'ChatList',
+	data() {
+		return {
+			list: [{
+				message: {
+					text: '嗯嗯，好的，知道了~',
+					time: '12:36',
+				},
+				userInfo: {
+					avatar: 'https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/5.jpg',
+					name: '小白杨',
+				},
+			}, {
+				message: {
+					text: '快回家快回家快回家快回家快回家快回家快回家快回家快回家快回家',
+					time: '10:00',
+				},
+				userInfo: {
+					avatar: 'https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/4.jpg',
+					name: '楠宝宝',
+				},
+			}],
+		}
+	},
+	methods: {
+		showMenu() {
+			const subNVue = uni.getSubNVueById('menu');
+			subNVue.show('fade-in', 300, function(){});
+			uni.$once('menu-hide', () => {
+				subNVue.hide('fade-out', 300);
+			});
+		}
+	}
+});
 </script>
 
 <style lang="scss" scoped>
