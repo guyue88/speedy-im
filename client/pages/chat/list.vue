@@ -11,7 +11,7 @@
 		<view class="main">
 			<u-search height="70" :show-action="false" :disabled="true" />
 			<view class="list">
-				<view class="list-item" v-for="(item, index) in list" :key="index">
+				<view class="list-item" v-for="(item, index) in list" :key="index" @click="chat2user(item.userInfo.id)">
 					<view class="avatar">
 						<image :src="item.userInfo.avatar" class="image">
 						<u-badge type="error" count="7" :offset="[-10, -10]" />
@@ -42,6 +42,7 @@ export default Vue.extend({
 					time: '12:36',
 				},
 				userInfo: {
+					id: 1,
 					avatar: 'https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/5.jpg',
 					name: '小白杨',
 				},
@@ -51,6 +52,7 @@ export default Vue.extend({
 					time: '10:00',
 				},
 				userInfo: {
+					id: 2,
 					avatar: 'https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/4.jpg',
 					name: '楠宝宝',
 				},
@@ -64,7 +66,12 @@ export default Vue.extend({
 			uni.$once('menu-hide', () => {
 				subNVue.hide('fade-out', 300);
 			});
-		}
+		},
+		chat2user(uid: number) {
+			uni.navigateTo({
+				url: `/pages/chat/chat?uid=${uid}`,
+			});
+		},
 	}
 });
 </script>

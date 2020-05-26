@@ -1,13 +1,19 @@
 <template>
-  
+  <view class="container">
+    aaaa
+  </view>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
 
-}
+declare let uni: any;
+
+export default Vue.extend({
+
+});
 </script>
 
-<style>
+<style scoped lang="scss">
 
 </style>
