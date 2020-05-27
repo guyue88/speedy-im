@@ -15,7 +15,7 @@
 						"type": "popup",
 						"style": {
 							"position": "absolute",
-							"mask": "rgba(0, 0, 0, .2)",
+							"mask": "rgba(0, 0, 0, .1)",
 							"top": "0px",
 							"left": "0px",
 							"right": "0px",
@@ -53,7 +53,7 @@
 						"type": "popup",
 						"style": {
 							"position": "absolute",
-							"mask": "rgba(0, 0, 0, .2)",
+							"mask": "rgba(0, 0, 0, .1)",
 							"top": "0px",
 							"left": "0px",
 							"right": "0px",

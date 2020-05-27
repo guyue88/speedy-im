@@ -45,12 +45,12 @@
           v-model="message"
           confirm-type="send"
           :confirm-hold="true"
-          :cursor-spacing="40"
+          :cursor-spacing="56"
           :hold-keyboard="true"
         />
         <view class="chat-tool-icons">
-          <image src="@/static/emoji.png" class="chat-tool-icon" />
-          <image src="@/static/plus.png" class="chat-tool-icon" />
+          <image src="@/static/nvue/emoji.png" class="chat-tool-icon" />
+          <image src="@/static/nvue/plus.png" class="chat-tool-icon" />
         </view>
       </view>
     </view>
@@ -59,6 +59,32 @@
 
 <script>
 import { MessageType, SendStatus, UserType, ContentType, MessageBelong } from '@/interface/enum';
+// import io from '@hyoga/uni-socket.io';
+
+// const socket = io('http://192.168.43.118:8360/chat', {
+//   query: {
+//     room: 'default',
+//     token: '',
+//   },
+//   transports: [ 'websocket', 'polling' ],
+//   timeout: 5000,
+// });
+// socket.on('connect', () => {
+//   console.log('ws 已连接');
+//   const { id } = socket;
+//   socket.on(id, (message) => {
+//     console.log('ws 收到服务器消息：', message);
+//   });
+//   socket.emit('send_data', {
+//     time: +new Date(),
+//   });
+// });
+// socket.on('error', (msg) => {
+//   console.log('ws error', msg);
+// });
+
+// console.log(111, io);
+// console.log(222, socket);
 
 export default {
   name: 'Chat',
@@ -143,6 +169,7 @@ export default {
 <style lang="scss">
 @import '@/helpers/styles/color.scss';
 .container {
+  flex: 1;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
@@ -150,6 +177,10 @@ export default {
   border-top-style: solid;
   border-top-color: #eaeaea;
   background-color: #f2f2f2;
+}
+.chat-main {
+  flex: 1;
+  flex-direction: column;
 }
 .chat-wrap {
   padding: 0 30rpx;
@@ -169,7 +200,7 @@ export default {
 .chat-message-avatar-image {
   width: 84rpx;
   height: 84rpx;
-  border-radius: 10%;
+  border-radius: 8rpx;
 }
 .chat-message-text-wrap {
   flex-direction: column;
@@ -255,7 +286,7 @@ export default {
 .chat-system-text {
   line-height: 60rpx;
   padding: 0 30rpx;
-  border-radius: 6rpx;
+  border-radius: 10rpx;
   background-color: #ddd;
   color: #fff;
   font-size: 28rpx;

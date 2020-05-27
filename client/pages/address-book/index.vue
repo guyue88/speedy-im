@@ -9,8 +9,22 @@
       </view>
 		</u-navbar>
 		<view class="main">
+			<view class="groups">
+				<view class="apply">
+					<view class="image">
+						<image src="@/static/page/apply.png" class="icon" />
+					</view>
+					<view class="text">好友申请</view>
+				</view>
+				<view class="group">
+					<view class="image">
+						<image src="@/static/page/group.png" class="icon" />
+					</view>
+					<view class="text">我的群组</view>
+				</view>
+			</view>
 			<view class="contact">
-				<view class="card" v-for="item in list" :key="item.key">
+				<view class="area" v-for="item in list" :key="item.key">
 					<view class="key">{{item.key}}</view>
 					<view class="list">
 						<view class="list-item" v-for="(cld, index) in item.list" :key="index" @click="chat2user(cld.id)">
@@ -93,6 +107,11 @@ export default Vue.extend({
 <style scoped lang="scss">
 @import '@/helpers/styles/color.scss';
 
+.card {
+	background-color: #fff;
+	border-top: 1rpx solid #eaeaea;
+	border-bottom: 1rpx solid #eaeaea;
+}
 .container {
 	height: 100%;
 	background-color: $background;
@@ -112,6 +131,43 @@ export default Vue.extend({
 			}
 		}
   }
+	.groups {
+		@extend .card;
+		border-top: none;
+		& > view {
+			display: flex;
+			align-items: center;
+			padding: 24rpx 30rpx;
+			font-size: 32rpx;
+			border-top: 1rpx solid #eaeaea;
+			&:first-child {
+				border-top: none;
+			}
+			.image {
+				width: 40rpx;
+				height: 40rpx;
+				margin-right: 30rpx;
+				background-color: #ecbe45;
+				border-radius: 8rpx;
+				box-sizing: content-box;
+				padding: 10rpx;
+				.icon {
+					width: 100%;
+					height: 100%;
+					border-radius: 8rpx;
+				}
+			}
+			.text {
+				height: 44rpx;
+				line-height: 44rpx;
+			}
+		}
+		.group {
+			.image {
+				background-color: #27e2e2;
+			}
+		}
+	}
 	.contact {
 		.key {
 			height: 80rpx;
@@ -119,8 +175,7 @@ export default Vue.extend({
 			padding-left: 30rpx;
 		}
 		.list {
-			background-color: #fff;
-			border-top: 1rpx solid #eaeaea;
+			@extend .card;
 			.list-item {
 				display: flex;
 				align-items: center;
@@ -150,6 +205,7 @@ export default Vue.extend({
 					height: 84rpx;
 					line-height: 84rpx;
 					padding-right: 30rpx;
+					font-size: 30rpx;
 				}
 			}
 		}

@@ -1,8 +1,19 @@
 <template>
   <view class="layer" @click="hideLayer">
-    <image class="prefix" src="@/static/triangle.png" />
+    <image class="prefix" src="@/static/nvue/triangle.png" />
     <view class="menu" @click.stop="">
-      <text class="text">扫一扫</text>
+      <view class="menu-item first">
+        <image src="@/static/nvue/scan.png" class="image">
+        <text class="text">扫一扫</text>
+      </view>
+      <view class="menu-item">
+        <image src="@/static/tab/chat.png" class="image">
+        <text class="text">发起群聊</text>
+      </view>
+      <view class="menu-item">
+        <image src="@/static/nvue/add.png" class="image">
+        <text class="text">添加好友</text>
+      </view>
     </view>
   </view>
 </template>
@@ -23,22 +34,39 @@ export default {
   position: relative;
 }
 .text {
-  font-size: 26rpx;
-  color: #fff;
+  font-size: 32rpx;
+  color: #333;
 }
 .menu {
+  flex-direction: column;
   position: absolute;
   top: 200rpx;
   right: 20rpx;
-  background-color: #1d1919;
-  padding: 24rpx;
+  background-color: #fff;
+  padding: 0 34rpx;
   border-radius: 12rpx;
 }
 .prefix {
   position: absolute;
-  top: 178rpx;
-  right: 40rpx;
-  width: 30rpx;
-  height: 30rpx;
+  top: 170rpx;
+  right: 36rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+.menu-item {
+  padding: 24rpx 0;
+  padding-right: 40rpx;
+  align-items: center;
+  border-top-width: 1rpx;
+  border-top-style: solid;
+  border-top-color: #eaeaea;
+}
+.first {
+  border-top-width: 0;
+}
+.image {
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 30rpx;
 }
 </style>

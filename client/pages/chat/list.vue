@@ -123,18 +123,18 @@ export default Vue.extend({
 				.content {
 					flex: 1;
 					.name {
-						font-size: 28rpx;
+						font-size: 32rpx;
 						color: #333;
 					}
 					.message {
 						@extend .line-1;
-						font-size: 24rpx;
+						font-size: 26rpx;
 						color: #999;
 					}
 				}
 				.time {
 					color: #999;
-					margin-left: 24rpx;
+					margin-left: 26rpx;
 				}
 			}
 		}
