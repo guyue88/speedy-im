@@ -3,15 +3,11 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import Component from 'vue-class-component';
+import Vue from 'vue';
 
-@Component({})
-export default class Me extends Vue {
-  onLoad() {
-
-  }
-}
+export default Vue.extend({
+  name: 'Me',
+});
 </script>
 
 <style>
