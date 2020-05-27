@@ -1,37 +1,29 @@
 # hyoga-im
 
-#### 介绍
- 基于uni-app开发的im系统
-
-#### 软件架构
-软件架构说明
+## 介绍
+ 基于uni-app + @hyoga/uni-socket.io + express + mysql开发高性能的即时通讯系统，支持点对点通讯、群组通讯、上下线等事件消息等众多功能。
 
 
-#### 安装教程
+## 开发计划
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+* [x] [UI开发](#UI开发)
+* [x] [私聊](#私聊)
+* [x] [群聊](#群聊)
+* [ ] [其他](#其他)
 
-#### 使用说明
+## 系统架构
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+### 客户端
 
-#### 参与贡献
+客户端使用`uni-app`开发，可以同时开发安卓端与IOS端，简单快捷。
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+#### UI开发
 
+![UI图](https://github.com/AspenLuoQiang/speedy-im/blob/master/client/github/images/IM.png?raw=true)
 
-#### 码云特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5.  码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+* [x] [好友列表]](#UI开发)
+* [x] [对话页](#对话页)
+* [x] [通讯录](#通讯录)
+* [ ] [登录页](#登录页)
+* [ ] [我的信息](#我的信息)
+* [ ] [好友信息](#好友信息)
