@@ -70,7 +70,7 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "IM",
 		"navigationBarBackgroundColor": "#F7F7F7",
-		"backgroundColor": "#F7F7F7"
+		"backgroundColor": "#f5f5f5"
 	},
 	"tabBar": {
     "color": "#666666",

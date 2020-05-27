@@ -91,7 +91,7 @@ export default Vue.extend({
 		align-items: center;
 		flex: 1;
 		padding: 0 30rpx;
-		font-size: 36rpx;
+		font-size: 32rpx;
 		& > view {
 			flex: 1;
 			&.app-name {

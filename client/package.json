@@ -11,7 +11,8 @@
   "license": "MIT",
   "dependencies": {
     "@hyoga/uni-socket.io": "^1.0.1",
-    "uview-ui": "^1.2.8"
+    "uview-ui": "^1.2.8",
+    "vuex": "^3.4.0"
   },
   "devDependencies": {
     "vue": "^2.6.11"

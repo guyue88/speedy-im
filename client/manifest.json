@@ -7,6 +7,9 @@
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
+        "nvue": {
+            "flex-direction": "row"
+        },
         "usingComponents" : true,
         "nvueCompiler" : "uni-app",
         "compilerVersion" : 3,

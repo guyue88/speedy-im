@@ -91,15 +91,17 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
+@import '@/helpers/styles/color.scss';
+
 .container {
 	height: 100%;
-	background-color: #f5f5f5;
+	background-color: $background;
 	.navbar {
 		display: flex;
 		align-items: center;
 		flex: 1;
 		padding: 0 30rpx;
-		font-size: 36rpx;
+		font-size: 32rpx;
 		& > view {
 			flex: 1;
 			&.app-name {
