@@ -1,5 +1,8 @@
 # hyoga-im
 
+[![star](https://img.shields.io/github/stars/AspenLuoQiang/speedy-im?style=social)](https://github.com/AspenLuoQiang/speedy-im)  [![QQ群](https://img.shields.io/badge/QQ%E7%BE%A4-207879913-yellowgreen.svg)](https://jq.qq.com/?_wv=1027&k=9f25XGCW)
+
+
 ## 介绍
  基于uni-app + @hyoga/uni-socket.io + express + mysql开发高性能的即时通讯系统，支持点对点通讯、群组通讯、上下线等事件消息等众多功能。
 
