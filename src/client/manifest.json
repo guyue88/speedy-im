@@ -133,6 +133,7 @@
             "treeShaking" : {
                 "enable" : true
             }
-        }
+        },
+        "domain" : "https://speedy-im.gitee.io"
     }
 }
