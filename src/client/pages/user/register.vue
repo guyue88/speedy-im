@@ -6,7 +6,7 @@
       </div>
     </view>
     <view class="welcome">
-      欢迎使用快聊
+      欢迎注册快聊账号
     </view>
     <view class="form">
       <view class="form-item">
@@ -21,13 +21,19 @@
           <input type="password" :password="true" v-model="password" placeholder="请输入密码" />
         </view>
       </view>
+      <view class="form-item">
+        <view class="title">重复密码</view>
+        <view class="input">
+          <input type="password" :password="true" v-model="password2" placeholder="请再次输入密码" />
+        </view>
+      </view>
       <view class="submit">
         <view class="button disabled">
-          登录
+          注册
         </view>
       </view>
       <view class="help">
-        <navigator url="/pages/user/register" class="register">注册账号</navigator>
+        <navigator url="/pages/user/login" class="login">已有账号</navigator>
       </view>
     </view>
   </view>
@@ -37,11 +43,12 @@
 import Vue from 'vue';
 
 export default Vue.extend({
-  name: 'Login',
+  name: 'Register',
   data() {
     return {
       mobile: '',
       password: '',
+      password2: '',
     }
   },
 });

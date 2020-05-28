@@ -37,7 +37,13 @@
 				"navigationBarTitleText": "用户登录",
 				"navigationStyle": "custom"
 			}
-		}, {
+		} ,{
+      "path" : "pages/user/register",
+      "style" : {
+        "navigationBarTitleText": "用户注册",
+        "navigationStyle": "custom"
+      }
+    }, {
 			"path": "pages/user/me",
 			"style": {
 				"navigationBarTitleText": "用户中心"
@@ -66,7 +72,7 @@
 				}
 			}
 		}
-	],
+  ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "IM",
