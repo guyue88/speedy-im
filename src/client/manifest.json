@@ -7,8 +7,8 @@
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
-        "nvue": {
-            "flex-direction": "row"
+        "nvue" : {
+            "flex-direction" : "row"
         },
         "usingComponents" : true,
         "nvueCompiler" : "uni-app",
@@ -124,7 +124,15 @@
     },
     "h5" : {
         "router" : {
-            "mode" : "history"
+            "mode" : "history",
+            "base" : ""
+        },
+        "template" : "public/template.h5.html",
+        "title" : "快聊 - 开源即时通讯项目",
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : true
+            }
         }
     }
 }
