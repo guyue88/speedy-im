@@ -1,2 +1,3 @@
 node_modules
-client/unpackage/dist/
+unpackage/dist
+unpackage/debug
