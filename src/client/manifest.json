@@ -125,7 +125,7 @@
     "h5" : {
         "router" : {
             "mode" : "history",
-            "base" : "/h5/"
+            "base" : "./"
         },
         "template" : "public/template.h5.html",
         "title" : "快聊 - 开源即时通讯项目",
