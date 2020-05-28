@@ -24,7 +24,7 @@
 
 #### UI开发
 
-![UI图](https://github.com/AspenLuoQiang/speedy-im/blob/master/client/github/images/IM.png?raw=true)
+![UI图](https://github.com/AspenLuoQiang/speedy-im/blob/master/.github/images/IM.png?raw=true)
 
 * [x] [好友列表](#好友列表)
 * [x] [对话页](#对话页)
@@ -38,5 +38,5 @@
 - [qq群](https://jq.qq.com/?_wv=1027&k=9f25XGCW)
 - 公众号
 
-![前端小白菜](https://github.com/AspenLuoQiang/speedy-im/blob/master/client/github/images/mp.jpg?raw=true)
+![前端小白菜](https://github.com/AspenLuoQiang/speedy-im/blob/master/.github/images/mp.jpg?raw=true)
 
