@@ -6,7 +6,10 @@
 
 
 ## 介绍
-基于uni-app + @hyoga/uni-socket.io + express + mysql开发高性能的即时通讯系统，支持点对点通讯、群组通讯、上下线等事件消息等众多功能。
+
+基于`uni-app` + `@hyoga/uni-socket.io` + `express` + `mysql`开发高性能的即时通讯系统。计划支持点对点通讯、群组通讯、上下线等事件消息等众多功能。
+
+正在持续开发中，目前仅部分UI开发完成。
 
 ## DEMO
 
@@ -21,6 +24,10 @@
 * [ ] [群聊](#群聊)
 
 ## 系统架构
+
+### 后端框架
+
+采用`express` + `socket.io` + `mysql`开发，使用`docker`部署。
 
 ### 客户端
 
