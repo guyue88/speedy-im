@@ -1,16 +1,21 @@
-import express, { Application, NextFunction, Request, Response } from 'express';
+import express, {
+  Application, Request, Response,
+} from 'express';
 import http from 'http';
 import createError from 'http-errors';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
 import socketIO from 'socket.io';
+import debug from 'debug';
 import indexRouter from './routes/index';
 
+const log = debug('speedy-im: ');
 const isDev = process.env.NODE_ENV === 'development';
 
 const app: Application = express();
 const server: http.Server = new http.Server(app);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const io: socketIO.Server = socketIO(server, {
   pingInterval: 5000,
   pingTimeout: 5000,
@@ -26,12 +31,12 @@ app.use(cookieParser());
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((_req, _res, next) => {
   next(createError(404));
 });
 
 // 500 error handler
-app.use(function(err: any, req: Request, res: Response, next: NextFunction) {
+app.use((err: { message: string; status: number; }, req: Request, res: Response) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -41,6 +46,6 @@ app.use(function(err: any, req: Request, res: Response, next: NextFunction) {
   res.render('error');
 });
 
-server.listen(8360, ()=>{
-  console.log("im 服务在 8360端口启动");
+server.listen(8360, () => {
+  log('im 服务在 8360端口启动');
 });
