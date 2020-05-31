@@ -14,6 +14,13 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.6.tgz#f9e178b2da31a4b0ec60b64649e244c31ce18daf"
   integrity sha512-FbNmu4F67d3oZMWBV6Y4MaPER+0EpE9eIYf2yaHhCWovc1dlXCZkqGX4NLHfVVr6umt20TNBdRzrNJIzIKfdbw==
 
+"@types/uni-app@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@types/uni-app/-/uni-app-1.4.2.tgz#e72af63b41ab77a869d058e3259d5c90fa01ba1b"
+  integrity sha512-PRMseHhBDaqHldOVkQrkTYkIG4RBJJKLVlSpLtc4GgqOlnL9nLpuqMz5e/UPDOnClsCeT4cfug6fqCGtRD3M9Q==
+  dependencies:
+    vue "^2.6.8"
+
 after@0.8.2:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/after/-/after-0.8.2.tgz#fedb394f9f0e02aa9768e702bda23b505fae7e1f"
@@ -208,7 +215,7 @@ uview-ui@^1.2.8:
   resolved "https://registry.yarnpkg.com/uview-ui/-/uview-ui-1.2.8.tgz#cf9e43dbcf58445f5c2adb16defa6bb5e2f16f06"
   integrity sha512-GfEMUS8XfYR07iLpUUnDEMEb1EJOnLEuJ5ZH0DFGBjJnClz0R+v/SYfvW3XRZN9+a7PLc8rIwOj+DYkdj20VuQ==
 
-vue@^2.6.11:
+vue@^2.6.11, vue@^2.6.8:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==

@@ -105,7 +105,7 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-@import '@/helpers/styles/color.scss';
+@import '@/helper/styles/color.scss';
 
 .card {
 	background-color: #fff;

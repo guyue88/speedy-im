@@ -55,7 +55,7 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-@import '../../helpers/styles/color.scss';
+@import '../../helper/styles/color.scss';
 .container {
   padding: 0 80rpx 0 80rpx;
   padding-top: calc(var(--window-top) + var(--status-bar-height));

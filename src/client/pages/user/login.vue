@@ -18,11 +18,11 @@
       <view class="form-item">
         <view class="title">密码</view>
         <view class="input">
-          <input type="password" :password="true" v-model="password" placeholder="请输入密码" />
+          <input type="password" :password="true" minlength="7" maxlength="20" v-model="password" placeholder="请输入密码" />
         </view>
       </view>
       <view class="submit">
-        <view class="button disabled">
+        <view class="button disabled" @click="login">
           登录
         </view>
       </view>
@@ -33,8 +33,11 @@
   </view>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue';
+import util from '../../helper/util';
+
+declare let uni: any;
 
 export default Vue.extend({
   name: 'Login',
@@ -44,11 +47,28 @@ export default Vue.extend({
       password: '',
     }
   },
+  methods: {
+    login() {
+      if (!util.isPhoneNumber(+this.mobile)) {
+        uni.showToast({
+          title: '手机号码不正确',
+          mask: 'none',
+        });
+      } else if (this.password.length < 7 || this.password.length > 20) {
+        uni.showToast({
+          title: '密码应为7-20个字符',
+          mask: 'none',
+        });
+      } else {
+        // this.$store.
+      }
+    }
+  }
 });
 </script>
 
 <style scoped lang="scss">
-@import '../../helpers/styles/color.scss';
+@import '../../helper/styles/color.scss';
 .container {
   padding: 0 80rpx 0 80rpx;
   padding-top: calc(var(--window-top) + var(--status-bar-height));
