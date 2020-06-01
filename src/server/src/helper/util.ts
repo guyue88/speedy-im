@@ -18,15 +18,15 @@ export default class Util {
     };
   }
 
-  public static encodePassword(password: string) {
+  public static encodePassword(password: string): string {
     return crypto.createHmac('sha1', config.passwordSecret).update(password).digest('hex');
   }
 
-  public static isPhoneNumber(number: number) {
-    return /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57]|19[0-9])[0-9]{8}$/.test('' + number);
+  public static isPhoneNumber(number: number): boolean {
+    return /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57]|19[0-9])[0-9]{8}$/.test(`${number}`);
   }
 
-  public static encryptPhoneNumber (number: number) {
-    return (number + '').replace(/^(\d{3})(\d{4})(\d{4})/, '$1****$2');
+  public static encryptPhoneNumber(number: number): string {
+    return (`${number}`).replace(/^(\d{3})(\d{4})(\d{4})/, '$1****$2');
   }
 }

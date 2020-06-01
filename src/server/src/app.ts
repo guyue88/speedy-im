@@ -2,7 +2,6 @@ import express, {
   Application, Request, Response, NextFunction,
 } from 'express';
 import http from 'http';
-import createError from 'http-errors';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
@@ -13,6 +12,7 @@ import expressJwt from 'express-jwt';
 import config from './config';
 import indexRouter from './routes';
 import userRouter from './routes/user';
+import Util from './helper/util';
 
 const log = debug('speedy-im');
 const isDev = process.env.NODE_ENV === 'development';
@@ -32,6 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(
   expressJwt({
     secret: jwt.secret,
@@ -46,23 +47,24 @@ app.use('/', indexRouter);
 app.use('/user', userRouter);
 
 // catch 404 and forward to error handler
-app.use((_req, _res, next) => {
-  next(createError(404));
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((req, res, next) => {
+  res.json(Util.fail('not found', 404));
 });
 
 // 500 error handler
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: { message: string; status: number; name: string; }, req: Request, res: Response, _: NextFunction) => {
   if (err.name === 'UnauthorizedError') {
-    res.status(401).send('invalid token');
+    res.json(Util.fail('invalid token', 401));
   }
 
-  res.status(err.status || 500).json({
+  res.json(Util.success({
     message: err.message,
     error: isDev ? err : {},
-  });
+  }, err.status || 500, '内部服务器错误'));
 });
 
 server.listen(8360, () => {
-  log('im 服务在 8360端口启动');
+  log('IM 服务在 8360端口启动');
 });

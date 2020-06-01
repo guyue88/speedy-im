@@ -33,9 +33,8 @@ const defaults = {
     routeWhiteList: [
       '/',
       '/favicon.ico',
-      '/user/info',
-      '/user/login',
-      '/user/register',
+      '/user/sign-in',
+      '/user/sign-up',
     ],
   },
 };
