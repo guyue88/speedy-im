@@ -210,6 +210,18 @@ to-array@0.1.4:
   resolved "https://registry.yarnpkg.com/to-array/-/to-array-0.1.4.tgz#17e6c11f73dd4f3d74cda7a4ff3238e9ad9bf890"
   integrity sha1-F+bBH3PdTz10zaek/zI46a2b+JA=
 
+uni-hold-tabbar@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/uni-hold-tabbar/-/uni-hold-tabbar-1.0.0.tgz#92be7924414a79a8e49d2f191d87959e60ade932"
+  integrity sha512-y2aeK5x5+znct18UiD8/LHX3F6ilOPHWRuJgA72+FbEmrzKE4otXRqiRZDqhifo0Zq4mby/wIRzKyiEyOCq5iQ==
+
+uni-simple-router@^1.5.4:
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/uni-simple-router/-/uni-simple-router-1.5.4.tgz#1f20b299e0a0b742f78d0931926406623d33348a"
+  integrity sha512-P0qO2UN9FdSRQC8nBkmNHSY4a71B8doZp9lUmvvUPYQP6EUlFJUuMcbfiHgbChSb0ovLx8v+WFHwvdCuH0KTxg==
+  dependencies:
+    uni-hold-tabbar "^1.0.0"
+
 uview-ui@^1.2.8:
   version "1.2.8"
   resolved "https://registry.yarnpkg.com/uview-ui/-/uview-ui-1.2.8.tgz#cf9e43dbcf58445f5c2adb16defa6bb5e2f16f06"

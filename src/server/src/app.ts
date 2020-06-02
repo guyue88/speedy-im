@@ -56,10 +56,10 @@ app.use((req, res, next) => {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: { message: string; status: number; name: string; }, req: Request, res: Response, _: NextFunction) => {
   if (err.name === 'UnauthorizedError') {
-    res.json(Util.fail('invalid token', 401));
+    return res.json(Util.fail('invalid token', 401));
   }
 
-  res.json(Util.success({
+  return res.json(Util.success({
     message: err.message,
     error: isDev ? err : {},
   }, err.status || 500, '内部服务器错误'));

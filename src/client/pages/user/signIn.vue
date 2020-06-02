@@ -6,7 +6,7 @@
       </div>
     </view>
     <view class="welcome">
-      欢迎注册快聊账号
+      欢迎使用快聊
     </view>
     <view class="form">
       <view class="form-item">
@@ -18,39 +18,62 @@
       <view class="form-item">
         <view class="title">密码</view>
         <view class="input">
-          <input type="password" :password="true" v-model="password" placeholder="请输入密码" />
-        </view>
-      </view>
-      <view class="form-item">
-        <view class="title">重复密码</view>
-        <view class="input">
-          <input type="password" :password="true" v-model="password2" placeholder="请再次输入密码" />
+          <input type="password" :password="true" minlength="5" maxlength="20" v-model="password" placeholder="请输入5-20位密码" />
         </view>
       </view>
       <view class="submit">
-        <view class="button disabled">
-          注册
+        <view class="button" :class="{ disabled }" @click="login">
+          登录
         </view>
       </view>
       <view class="help">
-        <navigator url="/pages/user/login" class="login">已有账号</navigator>
+        <navigator url="/pages/user/signUp" class="sign-up">注册账号</navigator>
       </view>
     </view>
   </view>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue';
+import Util from '../../helper/util';
+
+declare let uni: any;
 
 export default Vue.extend({
-  name: 'Register',
+  name: 'SignIn',
   data() {
     return {
       mobile: '',
       password: '',
-      password2: '',
     }
   },
+  computed: {
+    disabled() {
+      const isMobile = Util.isPhoneNumber(+this.mobile);
+      const passwordOk = this.password.length < 5 || this.password.length > 20;
+      return !isMobile && !passwordOk;
+    }
+  },
+  methods: {
+    login() {
+      if (!Util.isPhoneNumber(+this.mobile)) {
+        uni.showToast({
+          title: '手机号码不正确',
+          icon: 'none',
+        });
+      } else if (this.password.length < 5 || this.password.length > 20) {
+        uni.showToast({
+          title: '密码应为5-20个字符',
+          icon: 'none',
+        });
+      } else {
+        this.$store.dispatch('user/login', {
+          mobile: this.mobile,
+          password: this.password,
+        });
+      }
+    },
+  }
 });
 </script>
 
@@ -94,8 +117,10 @@ export default Vue.extend({
           border: none;
           border-bottom: 1rpx solid #eaeaea;
           height: 78rpx;
+          line-height: 78rpx;
           font-size: 30rpx;
           background-color: transparent;
+          text-indent: 16rpx;
         }
       }
     }

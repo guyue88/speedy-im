@@ -6,7 +6,7 @@
       </div>
     </view>
     <view class="welcome">
-      欢迎使用快聊
+      欢迎注册快聊账号
     </view>
     <view class="form">
       <view class="form-item">
@@ -18,16 +18,22 @@
       <view class="form-item">
         <view class="title">密码</view>
         <view class="input">
-          <input type="password" :password="true" minlength="7" maxlength="20" v-model="password" placeholder="请输入密码" />
+          <input type="password" :password="true" v-model="password" placeholder="请输入密码" />
+        </view>
+      </view>
+      <view class="form-item">
+        <view class="title">重复密码</view>
+        <view class="input">
+          <input type="password" :password="true" v-model="password2" placeholder="请再次输入密码" />
         </view>
       </view>
       <view class="submit">
-        <view class="button disabled" @click="login">
-          登录
+        <view class="button disabled">
+          注册
         </view>
       </view>
       <view class="help">
-        <navigator url="/pages/user/register" class="register">注册账号</navigator>
+        <navigator url="/pages/user/signIn" class="signIn">已有账号</navigator>
       </view>
     </view>
   </view>
@@ -35,35 +41,16 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import util from '../../helper/util';
-
-declare let uni: any;
 
 export default Vue.extend({
-  name: 'Login',
+  name: 'SignUp',
   data() {
     return {
       mobile: '',
       password: '',
+      password2: '',
     }
   },
-  methods: {
-    login() {
-      if (!util.isPhoneNumber(+this.mobile)) {
-        uni.showToast({
-          title: '手机号码不正确',
-          mask: 'none',
-        });
-      } else if (this.password.length < 7 || this.password.length > 20) {
-        uni.showToast({
-          title: '密码应为7-20个字符',
-          mask: 'none',
-        });
-      } else {
-        // this.$store.
-      }
-    }
-  }
 });
 </script>
 
@@ -109,6 +96,7 @@ export default Vue.extend({
           height: 78rpx;
           font-size: 30rpx;
           background-color: transparent;
+          text-indent: 16rpx;
         }
       }
     }

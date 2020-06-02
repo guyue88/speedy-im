@@ -32,13 +32,13 @@
 				"navigationBarTitleText": "聊天"
 			}
 		}, {
-			"path": "pages/user/login",
+			"path": "pages/user/signIn",
 			"style": {
 				"navigationBarTitleText": "用户登录",
 				"navigationStyle": "custom"
 			}
 		} ,{
-      "path" : "pages/user/register",
+      "path" : "pages/user/signUp",
       "style" : {
         "navigationBarTitleText": "用户注册",
         "navigationStyle": "custom"
@@ -50,7 +50,7 @@
 				"navigationStyle": "custom"
 			}
 		}, {
-			"path": "pages/address-book/index",
+			"path": "pages/addressBook/index",
 			"style": {
 				"navigationBarTitleText": "通讯录",
 				"navigationStyle": "custom",
@@ -92,7 +92,7 @@
         "selectedIconPath": "static/tab/chat-active.png",
         "text": "消息"
       }, {
-        "pagePath": "pages/address-book/index",
+        "pagePath": "pages/addressBook/index",
         "iconPath": "static/tab/address-book.png",
         "selectedIconPath": "static/tab/address-book-active.png",
         "text": "通讯录"

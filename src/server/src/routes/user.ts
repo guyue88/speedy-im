@@ -24,7 +24,11 @@ router.get('/info', async (req, res) => {
     return res.json(Util.success('用户不存在', 401));
   }
   delete info.password;
-  return res.json(Util.success(info));
+  const token = req.body.token || req.query.token || req.headers['x-access-token'];
+  return res.json(Util.success({
+    userInfo: info,
+    token,
+  }));
 });
 
 router.post('/sign-in', async (req, res) => {
