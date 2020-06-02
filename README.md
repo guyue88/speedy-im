@@ -13,7 +13,7 @@
 
 ## DEMO
 
-[speedy-im](https://speedy-im.gitee.io/h5/#/)
+[IM.apk](https://im.wangcai.me/__UNI__0CE1D62_0602212059.apk) 仅有UI，功能开发中
 
 
 ## 开发计划

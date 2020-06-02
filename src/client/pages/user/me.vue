@@ -68,6 +68,7 @@ export default Vue.extend({
 <style scoped lang="scss">
 @import '../../helper/styles/color.scss';
 .container {
+  padding-top: calc(var(--window-top) + var(--status-bar-height));
   .info {
     display: flex;
     align-items: center;
