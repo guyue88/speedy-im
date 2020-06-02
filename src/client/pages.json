@@ -46,7 +46,8 @@
     }, {
 			"path": "pages/user/me",
 			"style": {
-				"navigationBarTitleText": "用户中心"
+				"navigationBarTitleText": "用户中心",
+				"navigationStyle": "custom"
 			}
 		}, {
 			"path": "pages/address-book/index",
