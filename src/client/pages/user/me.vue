@@ -26,11 +26,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import wallet from '../../static/page/wallet.svg';
-import collect from '../../static/page/collect.svg';
-import privacy from '../../static/page/privacy.svg';
-import setting from '../../static/page/setting.svg';
-import service from '../../static/page/service.svg';
 
 declare let uni: any;
 export default Vue.extend({
@@ -45,19 +40,19 @@ export default Vue.extend({
       setting: [
         {
           name: '钱包',
-          url: wallet,
+          url: 'https://im.wangcai.me/speedy_wallet.svg',
         }, {
           name: '收藏',
-          url: collect,
+          url: 'https://im.wangcai.me/speedy_collect.svg',
         }, {
           name: '隐私',
-          url: privacy,
+          url: 'https://im.wangcai.me/speedy_privacy.svg',
         }, {
           name: '设置',
-          url: setting,
+          url: 'https://im.wangcai.me/speedy_setting.svg',
         }, {
           name: '联系客服',
-          url: service,
+          url: 'https://im.wangcai.me/speedy_service.svg',
         }
       ]
     }
@@ -100,6 +95,7 @@ export default Vue.extend({
   }
   .setting {
     margin-top: 30rpx;
+    font-size: 30rpx;
     .item {
       display: flex;
       align-items: center;
