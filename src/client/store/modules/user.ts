@@ -38,35 +38,43 @@ const actions = {
         password,
       }
     });
-    if (err) {
-      uni.showToast({
-        title: '网络错误',
+    if ( res && res.errno === 200) {
+      commit('SET_USER_INFO', { userInfo: res.data.userInfo });
+      commit('SET_TOKEN', { token: res.data.token });
+      uni.setStorage({
+        key: 'token',
+        data: res.data.token,
       });
-    } else {
-      if (res.errno === 200) {
-        commit('SET_USER_INFO', { userInfo: res.data.userInfo });
-        commit('SET_TOKEN', { token: res.data.token });
-        uni.setStorage({
-          key: 'token',
-          data: res.data.token,
-        });
-      }
+      return {
+        errno: 200,
+        errmsg: '',
+        data: res.data,
+      };
     }
+    return {
+      errno: res && res.errno || 1,
+      errmsg: res && res.errmsg || '网络错误',
+      data: null,
+    };
   },
   async autoLogin({ commit }: ActionContext<State, any>) {
     const [err, res] = await request({
       url: '/user/info',
     });
-    if (err) {
-      uni.showToast({
-        title: '网络错误',
-      });
-    } else {
-      if (res.errno === 200) {
-        commit('SET_USER_INFO', { userInfo: res.data.userInfo });
-        commit('SET_TOKEN', { token: res.data.token });
-      }
+    if (res && res.errno === 200) {
+      commit('SET_USER_INFO', { userInfo: res.data.userInfo });
+      commit('SET_TOKEN', { token: res.data.token });
+      return {
+        errno: 200,
+        errmsg: '',
+        data: res.data,
+      };
     }
+    return {
+      errno: res && res.errno || 1,
+      errmsg: res && res.errmsg || '网络错误',
+      data: null,
+    };
   },
 };
 

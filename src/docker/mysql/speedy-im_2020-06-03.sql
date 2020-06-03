@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# Host: 127.0.0.1 (MySQL 5.6.46)
+# Host: 127.0.0.1 (MySQL 5.6.48)
 # Database: speedy-im
-# Generation Time: 2020-06-01 12:12:04 +0000
+# Generation Time: 2020-06-03 14:55:29 +0000
 # ************************************************************
 
 
@@ -33,7 +33,7 @@ CREATE TABLE `user` (
   `avatar` varchar(255) DEFAULT '',
   `status` tinyint(2) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;

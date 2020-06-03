@@ -55,7 +55,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    login() {
+    async login() {
       if (!Util.isPhoneNumber(+this.mobile)) {
         uni.showToast({
           title: '手机号码不正确',
@@ -67,10 +67,20 @@ export default Vue.extend({
           icon: 'none',
         });
       } else {
-        this.$store.dispatch('user/login', {
+        const res = await this.$store.dispatch('user/login', {
           mobile: this.mobile,
           password: this.password,
         });
+        if (res.errno !== 200) {
+          uni.showToast({
+            title: res.errmsg,
+            icon: 'none',
+          });
+        } else {
+          let { redirect = '/' } = this.$Route.query;
+          redirect = decodeURIComponent(redirect);
+          this.$Router.push({ path: redirect });
+        }
       }
     },
   }

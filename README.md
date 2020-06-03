@@ -2,7 +2,7 @@
 
 [![star](https://img.shields.io/github/stars/AspenLuoQiang/speedy-im?style=social)](https://github.com/AspenLuoQiang/speedy-im)  [![QQ群](https://img.shields.io/badge/QQ%E7%BE%A4-207879913-yellowgreen.svg)](https://jq.qq.com/?_wv=1027&k=9f25XGCW)
 
-[介绍](#介绍) | [DEMO](#DEMO) | [开发计划](#开发计划) | [系统架构](#系统架构) | [联系作者](#联系作者)
+[介绍](#介绍) | [DEMO](#DEMO) | [开发](#开发) | [开发计划](#开发计划) | [系统架构](#系统架构) | [联系作者](#联系作者)
 
 
 ## 介绍
@@ -15,6 +15,47 @@
 
 [IM.apk](https://im.wangcai.me/__UNI__0CE1D62_0602212059.apk) 仅有UI，功能开发中
 
+## 开发
+
+客户端测试账号密码：
+  账号：13600000000
+  密码：admin
+
+```shell
+# 克隆项目
+$ git clone git@github.com:AspenLuoQiang/speedy-im.git
+$ cd speedy-im
+
+# 启动数据库
+$ cd docker
+$ docker-compose up -d mysql
+# 导入数据库，见下方导入数据库
+
+# 启动服务端
+$ cd ../server
+$ yarn && yarn dev
+
+# 以上为已开发模式启动服务端，不想改动服务端代码，只是单纯想开启服务器可以如下操作
+$ cd docker
+$ docker-compose up
+
+# 安装客户端依赖，安装完成后使用HBuilder X运行到浏览器即可，请确保此时服务端已正确运行，否则会导致接口无法调用
+$ cd speedy-im/src/client
+$ yarn
+```
+
+## 导入数据库
+
+* 本项目使用docker部署开发，待docker数据库启动后连接数据库，默认数据库配置见下方[MySQL默认配置](#MySQL默认配置)。
+* 新建数据库：`speedy-im`，编码采用`UTF-8 Unicode (utf8mb4)`。
+* 导入初始数据库，位置为`src/docker/mysql/speedy-im.sql`。
+
+### MySQL默认配置
+
+地址：127.0.0.1
+端口：3307
+用户名：root
+密码：123456
 
 ## 开发计划
 

@@ -9,6 +9,7 @@ Vue.use(Router);
 
 //初始化
 const router = new Router({
+  encodeURI: false,
   routes: [...routes],
 });
 
@@ -18,18 +19,19 @@ router.beforeEach(async (to: any, from: any, next: any) => {
     return next();
   }
   const { userInfo, token } = store.state.user;
-  if (!token || !userInfo || !userInfo.id) {
+  if (token && userInfo && userInfo.id) {
+    // 已登录则跳转
+    return next();
+  } else {
     // 未登录则尝试自动登录
-    await store.dispatch('user/autoLogin');
-    const { userInfo: _user } = store.state.user;
-    if (!_user || !_user.id) {
-      return next({ name: 'userSignIn' });
-    } else {
+    const res = await store.dispatch('user/autoLogin');
+    if (res && res.data && res.data.userInfo && res.data.userInfo.id) {
       // 自动登录后，正常跳转
-      next();
+      return next();
+    } else {
+      return next({ name: 'userSignIn' });
     }
   }
-  next();
 });
 
 // 全局路由后置守卫
