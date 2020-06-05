@@ -12,9 +12,6 @@ const router = express.Router();
 router.get('/info', async (req, res) => {
   const { user } = req as any;
   const { uid } = user || {};
-  if (!uid) {
-    return res.json(Util.fail('用户不存在', 401));
-  }
   const [err, info] = await User.getUserInfoById(+uid);
   if (err) {
     log(err);
@@ -24,15 +21,18 @@ router.get('/info', async (req, res) => {
     return res.json(Util.success('用户不存在', 401));
   }
   delete info.password;
-  const token = req.body.token || req.query.token || req.headers['x-access-token'];
+  delete info.client_id;
+  delete info.create_time;
+  const { token } = info;
   return res.json(Util.success({
     userInfo: info,
     token,
   }));
 });
 
-router.post('/sign-in', async (req, res) => {
-  const { mobile, password } = req.body;
+// 登录
+router.put('/sign-in', async (req, res) => {
+  const { mobile, password, platform = 'android' } = req.body;
   if (!mobile || mobile.length !== 11 || !password) {
     return res.json(Util.fail('用户不存在或密码错误', 0));
   }
@@ -52,6 +52,11 @@ router.post('/sign-in', async (req, res) => {
     expiresIn: '7d',
   };
   const token = jwt.sign(payload, config.jwt.secret, options);
+  const [err2] = await User.updateUserToken(userInfo.id, { token, platform });
+  if (err2) {
+    log(err2);
+    return res.json(Util.fail('数据库写入失败', 500));
+  }
 
   delete userInfo.password;
   return res.json(Util.success({
@@ -82,7 +87,7 @@ router.post('/sign-up', async (req, res) => {
   const passwordEncode = Util.encodePassword(password);
   const [err2, info] = await User.createUser({ mobile, password: passwordEncode });
   if (err2) {
-    log(err);
+    log(err2);
     return res.json(Util.fail('数据库操作失败', 500));
   }
   const { insertId } = info;
@@ -91,5 +96,20 @@ router.post('/sign-up', async (req, res) => {
   }
   return res.json(Util.success(true));
 });
+
+router.put('/sign-out', async (req, res) => res.send('退出登录'));
+
+router.get('/friends', async (req, res) => {
+  const { user } = req as any;
+  const { uid } = user || {};
+  const [err, data] = await User.getRelationByUid(uid);
+  if (err) {
+    log(err);
+    return res.json(Util.fail('数据库查询失败', 500));
+  }
+  return res.json(Util.success(data));
+});
+
+router.get('/groups', async (req, res) => res.send('退出登录'));
 
 export default router;

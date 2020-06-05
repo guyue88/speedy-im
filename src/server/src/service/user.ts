@@ -49,6 +49,29 @@ class User {
       .then((data: UserData) => [null, data])
       .catch((err: any) => [err, null]);
   }
+
+  getRelationByUid(uid: number) {
+    return db.table('view_user_friends')
+      .where({
+        uid,
+      })
+      .select()
+      .then((data: UserData) => [null, data])
+      .catch((err: any) => [err, null]);
+  }
+
+  updateUserToken(id: number, payload: { token: string; platform: string }) {
+    return db.table(this.table)
+      .where({
+        id,
+      })
+      .update({
+        token: payload.token,
+        client_type: payload.platform,
+      })
+      .then((data: UserData) => [null, data])
+      .catch((err: any) => [err, null]);
+  }
 }
 
 export default new User();

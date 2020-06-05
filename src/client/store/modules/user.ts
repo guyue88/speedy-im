@@ -32,7 +32,7 @@ const actions = {
   async login({ commit }: ActionContext<State, any>, { mobile, password}: { mobile: number, password: string }) {
     const [err, res] = await request({
       url: '/user/sign-in',
-      method: 'POST',
+      method: 'PUT',
       data: {
         mobile,
         password,

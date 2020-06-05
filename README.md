@@ -47,7 +47,6 @@ $ yarn
 ## 导入数据库
 
 * 本项目使用docker部署开发，待docker数据库启动后连接数据库，默认数据库配置见下方[MySQL默认配置](#MySQL默认配置)。
-* 新建数据库：`speedy-im`，编码采用`UTF-8 Unicode (utf8mb4)`。
 * 导入初始数据库，位置为`src/docker/mysql/speedy-im.sql`。
 
 ### MySQL默认配置

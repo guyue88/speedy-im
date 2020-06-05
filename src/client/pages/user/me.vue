@@ -2,10 +2,10 @@
   <view class="container">
     <div class="info">
       <view class="avatar">
-        <image :src="userInfo.avatar" class="image" />
+        <image :src="`${userInfo.avatar}?imageView2/1/w/150/h/150/format/jpg/interlace/1/q/75`" class="image" />
       </view>
       <view class="content">
-        <view class="name">{{userInfo.name}}</view>
+        <view class="name">{{userInfo.nickname}}</view>
         <view class="id">快聊ID: {{userInfo.id}}</view>
       </view>
       <view class="more">
@@ -26,17 +26,13 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapState } from 'vuex';
 
 declare let uni: any;
 export default Vue.extend({
   name: 'Me',
   data() {
     return {
-      userInfo: {
-        avatar: 'https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/5.jpg',
-        name: '小白杨',
-        id: 1000,
-      },
       setting: [
         {
           name: '钱包',
@@ -56,7 +52,12 @@ export default Vue.extend({
         }
       ]
     }
-  }
+  },
+  computed: {
+    ...mapState({
+      userInfo: (state: any) => state.user.userInfo,
+    }),
+  },
 });
 </script>
 

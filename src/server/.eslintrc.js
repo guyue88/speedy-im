@@ -40,6 +40,7 @@ module.exports = {
         ts: 'never',
       },
     ],
+    'class-methods-use-this': 'off',
     'no-console': ['error', { allow: ['warn'] }],
     'max-len': ['error', { code: 150 }],
   },
