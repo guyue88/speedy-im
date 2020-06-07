@@ -1,6 +1,7 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import debug from 'debug';
+import pinyin from 'pinyin';
 import config from '../config';
 import Util from '../helper/util';
 import User from '../service/user';
@@ -23,11 +24,7 @@ router.get('/info', async (req, res) => {
   delete info.password;
   delete info.client_id;
   delete info.create_time;
-  const { token } = info;
-  return res.json(Util.success({
-    userInfo: info,
-    token,
-  }));
+  return res.json(Util.success(info));
 });
 
 // 登录
@@ -60,7 +57,7 @@ router.put('/sign-in', async (req, res) => {
 
   delete userInfo.password;
   return res.json(Util.success({
-    userInfo,
+    ...userInfo,
     token,
   }));
 });
@@ -107,7 +104,37 @@ router.get('/friends', async (req, res) => {
     log(err);
     return res.json(Util.fail('数据库查询失败', 500));
   }
-  return res.json(Util.success(data));
+  let final: { key: string; list: any[] }[] = [];
+  const obj: any = {};
+  const others: any = [];
+  data.forEach((item: any) => {
+    const name = item.remark || item.friend_name;
+    const p = pinyin(name, {
+      style: pinyin.STYLE_FIRST_LETTER,
+    });
+    const first_letter: string = p && p[0] && p[0][0] || '';
+    if (first_letter) {
+      const letter = first_letter.toLocaleUpperCase();
+      if (!obj[letter]) {
+        obj[letter] = [];
+      }
+      obj[letter].push(item);
+    } else {
+      others.push(item);
+    }
+  });
+  for (const key in obj) {
+    final.push({
+      key,
+      list: obj[key],
+    });
+  }
+  final = final.sort((a, b) => a.key > b.key ? 1 : -1);
+  others.length && final.push({
+    key: '其他',
+    list: others,
+  });
+  return res.json(Util.success(final));
 });
 
 router.get('/groups', async (req, res) => res.send('退出登录'));

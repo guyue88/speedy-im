@@ -7,12 +7,14 @@ import logger from 'morgan';
 import cors from 'cors';
 import socketIO from 'socket.io';
 import debug from 'debug';
-import path from 'path';
+// import path from 'path';
 import expressJwt from 'express-jwt';
 import config from './config';
 import indexRouter from './routes';
 import userRouter from './routes/user';
 import Util from './helper/util';
+import SocketAuth from './socket/auth';
+import Chat from './socket/chat';
 
 const log = debug('speedy-im');
 const isDev = process.env.NODE_ENV === 'development';
@@ -25,13 +27,15 @@ const io: socketIO.Server = socketIO(server, {
   pingInterval: 5000,
   pingTimeout: 5000,
 });
+io.use(SocketAuth);
+new Chat(io).setup();
 
 app.use(cors());
 app.use(logger(isDev ? 'dev' : 'combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
   expressJwt({

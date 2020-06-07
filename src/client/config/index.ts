@@ -12,6 +12,10 @@ const configMap = {
 
 const defaults = {
   baseUrl: 'http://localhost:8360',
+  ws: {
+    host: 'http://localhost:8360',
+    namespace: 'chat',
+  },
 };
 
 const config: any = {

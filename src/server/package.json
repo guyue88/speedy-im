@@ -20,6 +20,7 @@
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
+    "pinyin": "^2.9.1",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
@@ -32,6 +33,7 @@
     "@types/jsonwebtoken": "^8.5.0",
     "@types/morgan": "^1.9.0",
     "@types/node": "^13.7.6",
+    "@types/pinyin": "^2.8.1",
     "@types/socket.io": "^2.1.8",
     "@typescript-eslint/eslint-plugin": "^3.0.2",
     "@typescript-eslint/parser": "^3.0.2",

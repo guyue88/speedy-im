@@ -18,14 +18,14 @@ router.beforeEach(async (to: any, from: any, next: any) => {
   if (!to.auth) {
     return next();
   }
-  const { userInfo, token } = store.state.user;
-  if (token && userInfo && userInfo.id) {
+  const { userInfo } = store.state.user;
+  if (userInfo && userInfo.id) {
     // 已登录则跳转
     return next();
   } else {
     // 未登录则尝试自动登录
     const res = await store.dispatch('user/autoLogin');
-    if (res && res.data && res.data.userInfo && res.data.userInfo.id) {
+    if (res && res.data && res.data.id) {
       // 自动登录后，正常跳转
       return next();
     } else {

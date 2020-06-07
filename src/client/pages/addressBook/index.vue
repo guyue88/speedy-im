@@ -24,14 +24,14 @@
 				</view>
 			</view>
 			<view class="contact">
-				<view class="area" v-for="item in list" :key="item.key">
+				<view class="area" v-for="item in friends" :key="item.key">
 					<view class="key">{{item.key}}</view>
 					<view class="list">
-						<view class="list-item" v-for="(cld, index) in item.list" :key="index" @click="chat2user(cld.id)">
+						<view class="list-item" v-for="(cld, index) in item.list" :key="index" @click="chat2user(cld.friend_id)">
 							<view class="avatar">
-								<image :src="cld.avatar" class="image" />
+								<image :src="cld.friend_avatar" class="image" />
 							</view>
-							<view class="name">{{cld.name}}</view>
+							<view class="name">{{cld.remark || cld.friend_name}}</view>
 						</view>
 					</view>
 				</view>
@@ -42,50 +42,19 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapState } from 'vuex';
 
 declare let uni: any;
 
 export default Vue.extend({
   name: 'AddressBook',
 	data() {
-		return {
-			list: [
-				{
-					key: 'A',
-					list: [{
-						id: 1,
-						name: '小白杨',
-						avatar: 'https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/5.jpg',
-					}, {
-						id: 2,
-						name: '楠宝宝',
-						avatar: 'https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/4.jpg',
-					}],
-				}, {
-					key: 'B',
-					list: [{
-						id: 3,
-						name: '小白杨',
-						avatar: 'https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/1.jpg',
-					}, {
-						id: 4,
-						name: '楠宝宝',
-						avatar: 'https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/2.jpg',
-					}],
-				}, {
-					key: 'C',
-					list: [{
-						id: 5,
-						name: '小白杨',
-						avatar: 'https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/3.jpg',
-					}, {
-						id: 6,
-						name: '楠宝宝',
-						avatar: 'https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/4.jpg',
-					}],
-				}
-			]
-		}
+		return {}
+	},
+	computed: {
+		...mapState({
+      friends: (state: any) => state.user.friends,
+    }),
 	},
 	methods: {
 		showMenu() {
