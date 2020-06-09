@@ -2,7 +2,7 @@
   <view class="container">
 		<u-navbar :is-back="false" title="" :background="{ backgroundColor: '#F8F8F8' }">
 			<view class="navbar">
-				<view class="app-name">快聊</view>
+				<view class="app-name">闪聊</view>
 				<view class="app-operate">
 					<u-icon name="plus-circle" size="50" @click="showMenu" />
 				</view>

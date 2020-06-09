@@ -6,7 +6,7 @@
       </view>
       <view class="content">
         <view class="name">{{userInfo.nickname}}</view>
-        <view class="id">快聊ID: {{userInfo.id}}</view>
+        <view class="id">闪聊ID: {{userInfo.id}}</view>
       </view>
       <view class="more">
         <u-icon name="arrow-right" size="36" />

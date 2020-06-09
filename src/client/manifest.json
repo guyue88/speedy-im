@@ -1,5 +1,5 @@
 {
-    "name" : "快聊",
+    "name" : "闪聊",
     "appid" : "__UNI__0CE1D62",
     "description" : "",
     "versionName" : "1.0.0",
@@ -128,7 +128,7 @@
             "base" : "/h5/"
         },
         "template" : "public/template.h5.html",
-        "title" : "快聊 - 开源即时通讯项目",
+        "title" : "闪聊 - 开源即时通讯项目",
         "optimization" : {
             "treeShaking" : {
                 "enable" : true
