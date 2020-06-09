@@ -1,6 +1,6 @@
 import { ActionContext } from 'vuex';
 import request from '../../helper/request';
-import socket from '../../socket/chat';
+import Chat from '../../socket/chat';
 
 declare let uni: any;
 
@@ -68,7 +68,7 @@ const actions = {
         key: 'token',
         data: res.data.token,
       });
-      socket({ token: res.data.token }).setup();
+      Chat.getInstance().setup({ token: res.data.token });
       return {
         errno: 200,
         errmsg: '',
@@ -88,7 +88,7 @@ const actions = {
     if (res && res.errno === 200) {
       await dispatch('getFriendsList');
       commit('SET_USER_INFO', { userInfo: res.data });
-      socket({ token: res.data.token }).setup();
+      Chat.getInstance().setup({ token: res.data.token });
       return {
         errno: 200,
         errmsg: '',

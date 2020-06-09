@@ -10,35 +10,29 @@ interface Options {
   token: string;
 }
 
-class Chat {
+export default class Chat {
+  private static instance: Chat;
   private token: string;
   private socket: any;
 
-  constructor(options: Options) {
+  public static getInstance() {
+    if (!this.instance) {
+      this.instance = new Chat();
+    }
+    return this.instance;
+  }
+
+  setup (options: Options) {
     this.token = options.token;
+    if (this.token) {
+      const socket = io(`${ws.host}/${ws.namespace}`, {
+        query: {
+          token: this.token,
+        },
+        transports: [ 'websocket', 'polling' ],
+        timeout: 5000,
+      });
+      this.socket = socket;
+    }
   }
-
-  setup () {
-    const socket = this.token && io(`${ws.host}/${ws.namespace}`, {
-      query: {
-        token: this.token,
-      },
-      transports: [ 'websocket', 'polling' ],
-      timeout: 5000,
-    });
-    this.socket = socket;
-  }
-}
-
-
-let __instance__: any = null;
-export default function getInstance(options: Options): Chat {
-
-  if (__instance__) {
-    return __instance__;
-  }
-
-  __instance__ = new Chat(options);
-
-  return __instance__;
 }
