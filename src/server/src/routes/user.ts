@@ -5,6 +5,8 @@ import pinyin from 'pinyin';
 import config from '../config';
 import Util from '../helper/util';
 import User from '../service/user';
+import Message, { MessageData } from '../service/message';
+// import db from '../lib/db';
 
 const log = debug('speedy-im user');
 
@@ -62,6 +64,7 @@ router.put('/sign-in', async (req, res) => {
   }));
 });
 
+// 注册
 router.post('/sign-up', async (req, res) => {
   let { mobile, password = '' } = req.body;
   password = password.trim();
@@ -94,8 +97,10 @@ router.post('/sign-up', async (req, res) => {
   return res.json(Util.success(true));
 });
 
+// 注销登录
 router.put('/sign-out', async (req, res) => res.send('退出登录'));
 
+// 获取好友列表
 router.get('/friends', async (req, res) => {
   const { user } = req as any;
   const { uid } = user || {};
@@ -112,9 +117,9 @@ router.get('/friends', async (req, res) => {
     const p = pinyin(name, {
       style: pinyin.STYLE_FIRST_LETTER,
     });
-    const first_letter: string = p && p[0] && p[0][0] || '';
-    if (first_letter) {
-      const letter = first_letter.toLocaleUpperCase();
+    const firstLetter: string = p && p[0] && p[0][0] || '';
+    if (firstLetter) {
+      const letter = firstLetter.toLocaleUpperCase();
       if (!obj[letter]) {
         obj[letter] = [];
       }
@@ -123,20 +128,49 @@ router.get('/friends', async (req, res) => {
       others.push(item);
     }
   });
-  for (const key in obj) {
+  Object.keys(obj).forEach((key) => {
     final.push({
       key,
       list: obj[key],
     });
-  }
-  final = final.sort((a, b) => a.key > b.key ? 1 : -1);
-  others.length && final.push({
-    key: '其他',
-    list: others,
   });
+  final = final.sort((a, b) => (a.key > b.key ? 1 : -1));
+  if (others.length) {
+    final.push({
+      key: '#',
+      list: others,
+    });
+  }
   return res.json(Util.success(final));
 });
 
-router.get('/groups', async (req, res) => res.send('退出登录'));
+// 获取群组
+router.get('/groups', async (req, res) => res.send('获取群组'));
+
+router.get('/unread-message', async (req, res) => {
+  const { user } = req as any;
+  const { uid } = user || {};
+  const [err, list] = await Message.getUnreadMessage(uid);
+  if (err) {
+    log(err);
+    return res.json(Util.fail('数据库查询失败', 500));
+  }
+  const tmp: any = [];
+
+  const result = list.map((item: MessageData) => {
+    tmp.push({
+      id: item.id,
+      is_sent: 1,
+    });
+    return {
+      ...item,
+      is_owner: uid === item.user_id,
+    };
+  });
+  if (tmp.length) {
+    Message.updateMultipleMessage(tmp);
+  }
+  return res.json(Util.success(result));
+});
 
 export default router;

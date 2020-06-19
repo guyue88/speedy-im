@@ -27,11 +27,11 @@
 				<view class="area" v-for="item in friends" :key="item.key">
 					<view class="key">{{item.key}}</view>
 					<view class="list">
-						<view class="list-item" v-for="(cld, index) in item.list" :key="index" @click="chat2user(cld.friend_id)">
+						<view class="list-item" v-for="(fid, index) in item.list" :key="index" @click="chat2user(fid)">
 							<view class="avatar">
-								<image :src="cld.friend_avatar" class="image" />
+								<image :src="allFriendsMap[fid].friend_avatar" class="image" />
 							</view>
-							<view class="name">{{cld.remark || cld.friend_name}}</view>
+							<view class="name">{{allFriendsMap[fid].remark || allFriendsMap[fid].friend_name}}</view>
 						</view>
 					</view>
 				</view>
@@ -53,7 +53,8 @@ export default Vue.extend({
 	},
 	computed: {
 		...mapState({
-      friends: (state: any) => state.user.friends,
+			friends: (state: any) => state.user.friends,
+			allFriendsMap: (state: any) => state.user.allFriendsMap,
     }),
 	},
 	methods: {

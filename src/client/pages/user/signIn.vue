@@ -6,7 +6,7 @@
       </div>
     </view>
     <view class="welcome">
-      欢迎使用闪聊
+      欢迎使用快聊
     </view>
     <view class="form">
       <view class="form-item">

@@ -58,33 +58,8 @@
 </template>
 
 <script>
+import Socket from '@/socket/chat';
 import { MessageType, SendStatus, UserType, ContentType, MessageBelong } from '@/interface/enum';
-// import io from '@hyoga/uni-socket.io';
-
-// const socket = io('http://192.168.43.118:8360/chat', {
-//   query: {
-//     room: 'default',
-//     token: '',
-//   },
-//   transports: [ 'websocket', 'polling' ],
-//   timeout: 5000,
-// });
-// socket.on('connect', () => {
-//   console.log('ws 已连接');
-//   const { id } = socket;
-//   socket.on(id, (message) => {
-//     console.log('ws 收到服务器消息：', message);
-//   });
-//   socket.emit('send_data', {
-//     time: +new Date(),
-//   });
-// });
-// socket.on('error', (msg) => {
-//   console.log('ws error', msg);
-// });
-
-// console.log(111, io);
-// console.log(222, socket);
 
 export default {
   name: 'Chat',
@@ -161,8 +136,7 @@ export default {
       },
       list,
     }
-  }
-
+  },
 };
 </script>
 

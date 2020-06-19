@@ -6,7 +6,7 @@
       </view>
       <view class="content">
         <view class="name">{{userInfo.nickname}}</view>
-        <view class="id">闪聊ID: {{userInfo.id}}</view>
+        <view class="id">快聊ID: {{userInfo.id}}</view>
       </view>
       <view class="more">
         <u-icon name="arrow-right" size="36" />
@@ -96,7 +96,6 @@ export default Vue.extend({
   }
   .setting {
     margin-top: 30rpx;
-    font-size: 30rpx;
     .item {
       display: flex;
       align-items: center;
@@ -109,6 +108,7 @@ export default Vue.extend({
       .text {
         margin: 0 20rpx;
         flex: 1;
+        font-size: 28rpx;
       }
     }
   }

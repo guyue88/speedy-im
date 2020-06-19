@@ -10,7 +10,6 @@ Vue.use(uView);
 
 Vue.prototype.$request = request;
 Vue.prototype.$store = store;
-Vue.prototype._$router = router;
 
 Vue.config.productionTip = false;
 

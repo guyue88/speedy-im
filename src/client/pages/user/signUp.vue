@@ -6,7 +6,7 @@
       </div>
     </view>
     <view class="welcome">
-      欢迎注册闪聊账号
+      欢迎注册快聊账号
     </view>
     <view class="form">
       <view class="form-item">

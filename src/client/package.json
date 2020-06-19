@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "@hyoga/uni-socket.io": "^1.0.1",
+    "dayjs": "^1.8.28",
     "uni-simple-router": "^1.5.4",
     "uview-ui": "^1.2.8",
     "vue": "^2.6.11",
