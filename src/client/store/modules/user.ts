@@ -1,27 +1,10 @@
 import { ActionContext } from 'vuex';
 import request from '../../helper/request';
 import Chat from '../../socket/chat';
+import { FriendInfo, UserInfo } from '../../interface/chat';
 
 declare let uni: any;
 
-interface FriendInfo {
-  uid: number;
-  friend_id: number;
-  remark: string;
-  status: number;
-  friend_name: string;
-  friend_mobile: number;
-  friend_avatar: string;
-  friend_sex: number;
-}
-interface UserInfo {
-  id: number;
-  name: string;
-  mobile: number;
-  avatar: string;
-  status: number;
-  token: string;
-}
 interface State {
   userInfo: UserInfo;
   allFriendsMap: {

@@ -16,11 +16,13 @@
 						<image :src="item.friend_info.friend_avatar" class="image">
 						<u-badge type="error" count="7" :offset="[-10, -10]" />
 					</view>
-					<view class="content">
-						<view class="name">{{item.friend_info.remark || item.friend_info.friend_name}}</view>
-						<view class="message">{{item.last_message.content}}</view>
+					<view class="wrap">
+						<view class="content">
+							<view class="name">{{item.friend_info.remark || item.friend_info.friend_name}}</view>
+							<view class="message">{{item.last_message.content}}</view>
+						</view>
+						<view class="time">{{item.last_message.time}}</view>
 					</view>
-					<view class="time">{{item.last_message.time}}</view>
 				</view>
 			</view>
 		</view>
@@ -58,8 +60,8 @@ export default Vue.extend({
 			});
 			return res;
 		}
-  },
-	created() {
+	},
+	onShow() {
 		this.$store.dispatch('message/getUnreadMessage');
 	},
 	methods: {
@@ -80,6 +82,8 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+@import '@/helper/styles/color.scss';
+
 .line-1 {
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 1;
@@ -108,10 +112,10 @@ export default Vue.extend({
 	.main {
 		padding: 30rpx;
 		.list {
+			margin-top: 10rpx;
 			.list-item {
 				display: flex;
 				align-items: center;
-				margin-top: 30rpx;
 				.avatar {
 					position: relative;
 					width: 84rpx;
@@ -123,21 +127,32 @@ export default Vue.extend({
 						border-radius: 10%;
 					}
 				}
-				.content {
+				.wrap {
 					flex: 1;
-					.name {
-						font-size: 32rpx;
-						color: #333;
+					display: flex;
+					align-items: center;
+					padding: 20rpx 0;
+					.content {
+						flex: 1;
+						.name {
+							font-size: 32rpx;
+							color: #333;
+						}
+						.message {
+							@extend .line-1;
+							font-size: 26rpx;
+							color: #999;
+						}
 					}
-					.message {
-						@extend .line-1;
-						font-size: 26rpx;
+					.time {
 						color: #999;
+						margin-left: 26rpx;
 					}
 				}
-				.time {
-					color: #999;
-					margin-left: 26rpx;
+			}
+			.list-item + .list-item {
+				.wrap {
+					border-top: 1rpx solid $borderColor;
 				}
 			}
 		}

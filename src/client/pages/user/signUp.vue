@@ -103,7 +103,7 @@ export default Vue.extend({
     .submit {
       margin-top: 30rpx;
       .button {
-        background-color: $blue-1;
+        background-color: $lightBlue;
         color: #fff;
         text-align: center;
         font-size: 32rpx;
