@@ -79,8 +79,8 @@ export default Vue.extend({
 
 .card {
 	background-color: #fff;
-	border-top: 1rpx solid #eaeaea;
-	border-bottom: 1rpx solid #eaeaea;
+	border-top: 1rpx solid $borderColor;
+	border-bottom: 1rpx solid $borderColor;
 }
 .container {
 	height: 100%;
@@ -109,7 +109,7 @@ export default Vue.extend({
 			align-items: center;
 			padding: 24rpx 30rpx;
 			font-size: 32rpx;
-			border-top: 1rpx solid #eaeaea;
+			border-top: 1rpx solid $borderColor;
 			&:first-child {
 				border-top: none;
 			}
@@ -152,7 +152,7 @@ export default Vue.extend({
 				padding-left: 30rpx;
 				& + .list-item {
 					.name {
-						border-top: 1rpx solid #eaeaea;
+						border-top: 1rpx solid $borderColor;
 					}
 				}
 				.avatar, .name {

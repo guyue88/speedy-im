@@ -1,31 +1,12 @@
 import { ActionContext } from 'vuex';
 import request from '../../helper/request';
-import Chat from '../../socket/chat';
-
-declare let uni: any;
-
-interface MessageData {
-  id: number;
-  user_id: number;
-  dist_id: number; // 接收人或者群
-  dist_type: 1 | 2; // 1 - 私聊， 2 - 群聊
-  is_received: number;
-  is_sent: number;
-  type: 'text' | 'audio' | 'video' | 'image';
-  content: string;
-  create_time: number;
-  status: number;
-  is_owner: boolean;
-};
-
-interface UserMessages {
-  [index: number]: MessageData[];
-}
+// import Chat from '../../socket/chat';
+import { MessageRecord } from '../../interface/chat';
 
 interface State {
   messages: {
     friend_id: number;
-    list: MessageData[];
+    list: MessageRecord[];
   }[];
 }
 
@@ -34,7 +15,7 @@ const state: State = {
 };
 
 const mutations = {
-  SET_USER_MESSAGES(state: State, { messages: list }: { messages: MessageData[] }) {
+  SET_USER_MESSAGES(state: State, { messages: list }: { messages: MessageRecord[] }) {
     const messages = [...state.messages];
     list.forEach(item => {
       const { dist_id, user_id, is_owner } = item;

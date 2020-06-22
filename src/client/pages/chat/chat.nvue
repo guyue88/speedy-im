@@ -5,7 +5,7 @@
       :scroll-y="true"
       :scroll-with-animation="true"
       :enable-back-to-top="true"
-      :show-scrollbar="true"
+      :show-scrollbar="false"
     >
       <view
         v-for="(item, index) in list"
@@ -137,6 +137,9 @@ export default {
       list,
     }
   },
+  onLoad() {
+    
+  }
 };
 </script>
 

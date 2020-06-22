@@ -20,36 +20,42 @@ export enum UserType {
   SELF,
 }
 
-// 内容类型
-export enum ContentType {
-  TEXT = 1,
-  IMAGE,
-  AUDIO,
-}
-
-// 消息时属于自己还是朋友发送的
-export enum MessageBelong {
-  SYSTEM = 1,
-  FRIEND,
-  SELF,
-}
-
 // 类型信息
 export interface ChatUser {
   id: number;
   type: UserType; // 客服，好友，自己
 }
 
+export interface FriendInfo {
+  uid: number;
+  friend_id: number;
+  remark: string;
+  status: number;
+  friend_name: string;
+  friend_mobile: number;
+  friend_avatar: string;
+  friend_sex: number;
+}
+
+export interface UserInfo {
+  id: number;
+  name: string;
+  mobile: number;
+  avatar: string;
+  status: number;
+  token: string;
+}
+
+// 消息体
 export interface MessageRecord {
   id: number;
-  content: string;
-  content_type: ContentType;
-  create_time: number;
-  is_read: 0 | 1;
+  user_id: number;
+  dist_id: number; // 接收人或者群
+  dist_type: 1 | 2; // 1 - 私聊， 2 - 群聊
   is_received: 0 | 1;
-  message_type: MessageType;
-  sender: ChatUser;
-  receiver: ChatUser;
-  send_status: SendStatus;
-  message_belong: MessageBelong;
+  is_sent: 0 | 1;
+  type: 'text' | 'audio' | 'video' | 'image';
+  content: string;
+  create_time: number;
+  is_owner: boolean;
 }
