@@ -40,6 +40,7 @@ app.use(cookieParser());
 app.use(
   expressJwt({
     secret: jwt.secret,
+    algorithms: ['HS256'],
     getToken: (req: Request) => req.body.token || req.query.token || req.headers['x-access-token'],
   })
     .unless({
