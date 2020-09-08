@@ -14,4 +14,4 @@ RUN yarn install && yarn build
 
 EXPOSE 8360
 
-CMD npm run start
+CMD npm run prod

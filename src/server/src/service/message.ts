@@ -17,33 +17,59 @@ export interface MessageData {
 class Message {
   private table = 'message';
 
-  getUnreadMessage(uid: number) {
-    return db.table(this.table)
-      .where({
-        dist_id: uid,
-        dist_type: 1,
-      })
-      .where({ 'is_received|is_sent': 0 })
-      .select()
-      .then((data: MessageData) => [null, data])
-      .catch((err: any) => [err, null]);
+  /**
+   * 获取用户未读消息列表
+   *
+   * @param {number} uid 用户ID
+   * @returns 未读消息列表
+   */
+  async getUnreadMessage(uid: number) {
+    try {
+      const data = await db.table(this.table)
+        .where({
+          dist_id: uid,
+          dist_type: 1,
+        })
+        .where({ 'is_received|is_sent': 0 })
+        .select();
+      return [null, data];
+    } catch (err) {
+      return [err, null];
+    }
   }
 
-  updateMessage(id: number, columns: { [index: string]: any }) {
-    return db.table(this.table)
-      .where({
-        id,
-      })
-      .update(columns)
-      .then((data: any) => [null, data])
-      .catch((err: any) => [err, null]);
+  /**
+   * 更新消息信息
+   *
+   * @param {number} uid 用户ID
+   * @param {Record<string, any>} columns 数据列
+   */
+  async updateMessage(uid: number, columns: Record<string, any>) {
+    try {
+      const data = await db.table(this.table)
+        .where({
+          id: uid,
+        })
+        .update(columns);
+      return [null, data];
+    } catch (err) {
+      return [err, null];
+    }
   }
 
-  updateMultipleMessage(columns: { [index: string]: any }[]) {
-    return db.table(this.table)
-      .updateMany(columns)
-      .then((data: any) => [null, data])
-      .catch((err: any) => [err, null]);
+  /**
+   * 一次性更新多条消息信息，必须要有主键
+   *
+   * @param {Record<string, any>[]} columns 数据列
+   */
+  async updateMultipleMessage(columns: Record<string, any>[]) {
+    try {
+      const data = await db.table(this.table)
+        .updateMany(columns);
+      return [null, data];
+    } catch (err) {
+      return [err, null];
+    }
   }
 }
 

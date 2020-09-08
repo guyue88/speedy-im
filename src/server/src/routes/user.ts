@@ -12,9 +12,18 @@ const log = debug('speedy-im user');
 
 const router = express.Router();
 
+/**
+ * 从token获取用户信息
+ *
+ * @method GET
+ * @param {token} string
+ */
 router.get('/info', async (req, res) => {
   const { user } = req as any;
   const { uid } = user || {};
+  if (!uid) {
+    return res.json(Util.success('用户未登陆', 401));
+  }
   const [err, info] = await User.getUserInfoById(+uid);
   if (err) {
     log(err);
@@ -29,7 +38,14 @@ router.get('/info', async (req, res) => {
   return res.json(Util.success(info));
 });
 
-// 登录
+/**
+ * 登录
+ *
+ * @method POST
+ * @param {number} mobile 手机号
+ * @param {string} password 密码
+ * @param {'android' | 'ios' | 'web'} platform 登陆平台
+ */
 router.put('/sign-in', async (req, res) => {
   const { mobile, password, platform = 'android' } = req.body;
   if (!mobile || mobile.length !== 11 || !password) {
@@ -64,7 +80,13 @@ router.put('/sign-in', async (req, res) => {
   }));
 });
 
-// 注册
+/**
+ * 注册
+ *
+ * @method POST
+ * @param {number} mobile 手机号
+ * @param {string} password 密码
+ */
 router.post('/sign-up', async (req, res) => {
   let { mobile, password = '' } = req.body;
   password = password.trim();
@@ -97,13 +119,23 @@ router.post('/sign-up', async (req, res) => {
   return res.json(Util.success(true));
 });
 
-// 注销登录
+/**
+ * 注销登录
+ */
 router.put('/sign-out', async (req, res) => res.send('退出登录'));
 
-// 获取好友列表
+/**
+ * 获取好友列表
+ *
+ * @method GET
+ * @param {token} string
+ */
 router.get('/friends', async (req, res) => {
   const { user } = req as any;
   const { uid } = user || {};
+  if (!uid) {
+    return res.json(Util.success('用户未登陆', 401));
+  }
   const [err, data] = await User.getRelationByUid(uid);
   if (err) {
     log(err);
@@ -144,12 +176,38 @@ router.get('/friends', async (req, res) => {
   return res.json(Util.success(final));
 });
 
-// 获取群组
-router.get('/groups', async (req, res) => res.send('获取群组'));
+/**
+ * 获取群组
+ *
+ * @method GET
+ * @param {token} string
+ */
+router.get('/groups', async (req, res) => {
+  const { user } = req as any;
+  const { uid } = user || {};
+  if (!uid) {
+    return res.json(Util.success('用户未登陆', 401));
+  }
+  const [err, list] = await User.getUserGroup(uid);
+  if (err) {
+    log(err);
+    return res.json(Util.fail('数据库查询失败', 500));
+  }
+  return res.json(Util.success(list));
+});
 
+/**
+ * 获取未读消息
+ *
+ * @method GET
+ * @param {token} string
+ */
 router.get('/unread-message', async (req, res) => {
   const { user } = req as any;
   const { uid } = user || {};
+  if (!uid) {
+    return res.json(Util.success('用户未登陆', 401));
+  }
   const [err, list] = await Message.getUnreadMessage(uid);
   if (err) {
     log(err);
