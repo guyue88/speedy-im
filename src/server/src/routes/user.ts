@@ -21,9 +21,6 @@ const router = express.Router();
 router.get('/info', async (req, res) => {
   const { user } = req as any;
   const { uid } = user || {};
-  if (!uid) {
-    return res.json(Util.success('用户未登陆', 401));
-  }
   const [err, info] = await User.getUserInfoById(+uid);
   if (err) {
     log(err);
@@ -133,9 +130,6 @@ router.put('/sign-out', async (req, res) => res.send('退出登录'));
 router.get('/friends', async (req, res) => {
   const { user } = req as any;
   const { uid } = user || {};
-  if (!uid) {
-    return res.json(Util.success('用户未登陆', 401));
-  }
   const [err, data] = await User.getRelationByUid(uid);
   if (err) {
     log(err);
@@ -185,9 +179,6 @@ router.get('/friends', async (req, res) => {
 router.get('/groups', async (req, res) => {
   const { user } = req as any;
   const { uid } = user || {};
-  if (!uid) {
-    return res.json(Util.success('用户未登陆', 401));
-  }
   const [err, list] = await User.getUserGroup(uid);
   if (err) {
     log(err);
@@ -205,9 +196,6 @@ router.get('/groups', async (req, res) => {
 router.get('/unread-message', async (req, res) => {
   const { user } = req as any;
   const { uid } = user || {};
-  if (!uid) {
-    return res.json(Util.success('用户未登陆', 401));
-  }
   const [err, list] = await Message.getUnreadMessage(uid);
   if (err) {
     log(err);
