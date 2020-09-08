@@ -7,7 +7,6 @@ import logger from 'morgan';
 import cors from 'cors';
 import socketIO from 'socket.io';
 import debug from 'debug';
-// import path from 'path';
 import expressJwt from 'express-jwt';
 import config from './config';
 import indexRouter from './routes';
@@ -35,7 +34,6 @@ app.use(logger(isDev ? 'dev' : 'combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
   expressJwt({

@@ -5,7 +5,7 @@
   "main": "dist/app.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon src/app.ts",
-    "start": "cross-env NODE_ENV=production node dist/app.js",
+    "prod": "cross-env NODE_ENV=production node dist/app.js",
     "build": "rimraf dist && tsc -p .",
     "lint": "eslint src --ext .ts",
     "lint-fix": "eslint src --ext .ts --fix"

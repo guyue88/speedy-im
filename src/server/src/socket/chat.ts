@@ -5,8 +5,10 @@ import { Message } from '../interface/chat';
 const log = debug('ws');
 
 export default class Chat {
-  private namespace: string = 'chat';
+  private namespace = 'chat';
+
   private io: socketIO.Server;
+
   private nsp: socketIO.Namespace;
 
   constructor(io: socketIO.Server) {
@@ -15,7 +17,7 @@ export default class Chat {
   }
 
   setup() {
-    this.nsp.on('connect', async(socket: socketIO.Socket) => {
+    this.nsp.on('connect', async (socket: socketIO.Socket) => {
       log('用户已连接');
       this.onMessage(socket);
     });
@@ -33,7 +35,7 @@ export default class Chat {
         content_type: message.content_type || 'text',
         content: message.content,
         create_time: time,
-      }
+      };
       log(message);
     });
   }
