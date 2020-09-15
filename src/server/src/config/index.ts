@@ -1,18 +1,9 @@
-import { Config as MysqlConfig } from '@hyoga/mysql';
 import dev from './dev';
 import prod from './prod';
+import { EnvType, Config } from '../interface/config';
 
-type EnvType = 'local' | 'development' | 'production';
-
-interface Config {
-  mysql: MysqlConfig;
-  jwt: {
-    secret: string; // jwt加密秘钥
-    routeWhiteList: string[];
-  },
-  passwordSecret: string; // 密码加密存储秘钥
-}
 const env: EnvType = (process.env.NODE_ENV as EnvType) || 'local';
+
 const configMap = {
   local: {},
   development: dev,
@@ -35,6 +26,7 @@ const defaults = {
       '/favicon.ico',
       '/user/sign-in',
       '/user/sign-up',
+      '/user/sign-out',
     ],
   },
 };

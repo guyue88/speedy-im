@@ -21,7 +21,6 @@ const { jwt } = config;
 
 const app: Application = express();
 const server: http.Server = new http.Server(app);
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const io: socketIO.Server = socketIO(server, {
   pingInterval: 5000,
   pingTimeout: 5000,
@@ -47,7 +46,7 @@ app.use(
 );
 
 app.use('/', indexRouter);
-app.use('/user', userRouter);
+app.use('/api/user', userRouter);
 
 // catch 404 and forward to error handler
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
