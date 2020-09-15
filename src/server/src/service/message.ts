@@ -1,21 +1,24 @@
-/* eslint-disable camelcase */
 import db from '../lib/db';
-
-export interface MessageData {
-  id: number;
-  user_id: number;
-  dist_id: number; // 接收人或者群
-  dist_type: 1 | 2; // 1 - 私聊， 2 - 群聊
-  is_received: number;
-  is_sent: number;
-  type: 'text' | 'audio' | 'video' | 'image';
-  content: string;
-  create_time: number;
-  status: number;
-}
+import { Message as MessageData } from '../interface/entity';
 
 class Message {
   private table = 'message';
+
+  /**
+   * 创建一条信息
+   *
+   * @param {MessageData} message 消息
+   * @returns
+   */
+  async createMessage(message: MessageData) {
+    try {
+      const data = await db.table(this.table)
+        .add(message);
+      return [null, data];
+    } catch (err) {
+      return [err, null];
+    }
+  }
 
   /**
    * 获取用户未读消息列表

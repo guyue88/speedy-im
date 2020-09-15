@@ -44,5 +44,6 @@ module.exports = {
     'no-console': ['error', { allow: ['warn'] }],
     'max-len': ['error', { code: 150 }],
     'no-mixed-operators': 'off',
+    camelcase: 'off',
   },
 };

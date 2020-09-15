@@ -1,14 +1,5 @@
 import db from '../lib/db';
 
-export interface UserData {
-  id: number;
-  name: string;
-  mobile: number;
-  password: string;
-  avatar: string;
-  status: number;
-}
-
 class User {
   private table = 'user';
 
