@@ -27,7 +27,7 @@
         </view>
       </view>
       <view class="help">
-        <navigator url="/pages/user/signUp" class="sign-up">注册账号</navigator>
+        <navigator url="/pages/user/signUp" class="signUp">注册账号</navigator>
       </view>
     </view>
   </view>

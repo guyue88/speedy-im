@@ -1,29 +1,27 @@
 import { ActionContext } from 'vuex';
 import request from '../../helper/request';
-import Chat from '../../socket/chat';
-import { FriendInfo, UserInfo } from '../../interface/chat';
+import { User } from '../../interface/entity';
+import { FriendInfo } from '../../interface/chat';
 
 declare let uni: any;
 
 interface State {
-  userInfo: UserInfo;
-  allFriendsMap: {
-    [index: number]: FriendInfo;
-  };
+  userInfo: User;
+  friendsMap: Record<User['id'], FriendInfo>;
   friends: {
     key: string; // 用户名首字母
-    list: number[]
+    list: User['id'][]
   }[];
 }
 
 const state: State = {
-  userInfo: {} as UserInfo,
-  allFriendsMap: {},
+  userInfo: {} as User,
+  friendsMap: {},
   friends: [],
 };
 
 const mutations = {
-  SET_USER_INFO(state: State, payload: { userInfo: UserInfo }) {
+  SET_USER_INFO(state: State, payload: { userInfo: User }) {
     state.userInfo = payload.userInfo;
   },
   SET_USER_FRIENDS(state: State, payload: { friends: { key: string; list: FriendInfo[] }[] }) {
@@ -40,7 +38,7 @@ const mutations = {
       }
     });
     state.friends = tmp;
-    state.allFriendsMap = map;
+    state.friendsMap = map;
   },
 };
 
@@ -56,7 +54,7 @@ const actions = {
   },
   async login({ commit, dispatch }: ActionContext<State, any>, { mobile, password}: { mobile: number, password: string }) {
     const [err, res] = await request({
-      url: '/user/sign-in',
+      url: '/user/signIn',
       method: 'PUT',
       data: {
         mobile,
@@ -66,11 +64,7 @@ const actions = {
     if (res && res.errno === 200) {
       await dispatch('getFriendsList');
       commit('SET_USER_INFO', { userInfo: res.data });
-      uni.setStorage({
-        key: 'token',
-        data: res.data.token,
-      });
-      Chat.getInstance().setup({ token: res.data.token });
+      uni.setStorageSync('token', res.data.token);
       return {
         errno: 200,
         errmsg: '',
@@ -90,7 +84,6 @@ const actions = {
     if (res && res.errno === 200) {
       await dispatch('getFriendsList');
       commit('SET_USER_INFO', { userInfo: res.data });
-      Chat.getInstance().setup({ token: res.data.token });
       return {
         errno: 200,
         errmsg: '',

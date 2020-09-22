@@ -123,6 +123,28 @@ class User {
   }
 
   /**
+   * 用户WS上下线更新client_id
+   *
+   * @param {number} uid 用户ID
+   * @param {string} client_id
+   * @returns 用户信息
+   */
+  async updateUserClientId(uid: number, client_id: string) {
+    try {
+      const data = await db.table(this.table)
+        .where({
+          id: uid,
+        })
+        .update({
+          client_id,
+        });
+      return [null, data];
+    } catch (err) {
+      return [err, null];
+    }
+  }
+
+  /**
    * 获取用户群组
    *
    * @param {number} uid 用户ID

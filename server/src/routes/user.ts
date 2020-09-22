@@ -5,7 +5,8 @@ import pinyin from 'pinyin';
 import config from '../config';
 import Util from '../helper/util';
 import User from '../service/user';
-import Message, { MessageData } from '../service/message';
+import Message from '../service/message';
+import { Message as MessageData } from '../interface/entity';
 // import db from '../lib/db';
 
 const log = debug('speedy-im user');
@@ -43,7 +44,7 @@ router.get('/info', async (req, res) => {
  * @param {string} password 密码
  * @param {'android' | 'ios' | 'web'} platform 登陆平台
  */
-router.put('/sign-in', async (req, res) => {
+router.put('/signIn', async (req, res) => {
   const { mobile, password, platform = 'android' } = req.body;
   if (!mobile || mobile.length !== 11 || !password) {
     return res.json(Util.fail('用户不存在或密码错误', 0));
@@ -84,7 +85,7 @@ router.put('/sign-in', async (req, res) => {
  * @param {number} mobile 手机号
  * @param {string} password 密码
  */
-router.post('/sign-up', async (req, res) => {
+router.post('/signUp', async (req, res) => {
   let { mobile, password = '' } = req.body;
   password = password.trim();
 
@@ -119,7 +120,7 @@ router.post('/sign-up', async (req, res) => {
 /**
  * 注销登录
  */
-router.put('/sign-out', async (req, res) => res.send('退出登录'));
+router.put('/signOut', async (req, res) => res.send('退出登录'));
 
 /**
  * 获取好友列表
@@ -193,28 +194,26 @@ router.get('/groups', async (req, res) => {
  * @method GET
  * @param {token} string
  */
-router.get('/unread-message', async (req, res) => {
+router.get('/unreadMessage', async (req, res) => {
   const { user } = req as any;
   const { uid } = user || {};
+  // TODO，分页
   const [err, list] = await Message.getUnreadMessage(uid);
   if (err) {
     log(err);
     return res.json(Util.fail('数据库查询失败', 500));
   }
-  const tmp: any = [];
+  const tmp: number[] = [];
 
   const result = list.map((item: MessageData) => {
-    tmp.push({
-      id: item.id,
-      is_sent: 1,
-    });
+    tmp.push(item.id as number);
     return {
       ...item,
       is_owner: uid === item.user_id,
     };
   });
   if (tmp.length) {
-    Message.updateMultipleMessage(tmp);
+    Message.updateMultipleMessage(tmp, { is_sent: 1 });
   }
   return res.json(Util.success(result));
 });

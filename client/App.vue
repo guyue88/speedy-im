@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "App",
+  name: "Root",
   onLaunch: function() {
     console.log("App Launch");
   },

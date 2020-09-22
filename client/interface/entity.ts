@@ -1,3 +1,4 @@
+// 与后端一致
 import { ENUM_MESSAGE_CONTENT_TYPE, ENUM_MESSAGE_DIST_TYPE } from '../enum/message';
 
 export interface Message {
@@ -26,4 +27,9 @@ export interface User {
   client_type: 'android' | 'ios';
   create_time: number;
   status: number;
+}
+
+
+export interface MessageRecord extends Message {
+  is_owner: boolean;
 }

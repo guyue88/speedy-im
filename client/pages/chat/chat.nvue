@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import Socket from '@/socket/chat';
+// import Socket from '@/socket/chat';
 import { MessageType, SendStatus, UserType, ContentType, MessageBelong } from '@/interface/enum';
 
 export default {
