@@ -14,7 +14,7 @@
 				<view class="list-item" v-for="(item, index) in list" :key="index" @click="chat2user(item.friend_id)">
 					<view class="avatar">
 						<image :src="item.friend_info.friend_avatar" class="image">
-						<u-badge type="error" count="7" :offset="[-10, -10]" />
+						<u-badge type="error" :count="item.unread_number" :offset="[-10, -10]" />
 					</view>
 					<view class="wrap">
 						<view class="content">
@@ -33,6 +33,9 @@
 import Vue from 'vue';
 import { mapState } from 'vuex';
 import Util from '../../helper/util';
+// import '../../socket/chat';
+// import { FriendInfo } from '../../interface/chat';
+// import { MessageRecord } from '../../interface/entity';
 
 declare let uni: any;
 
@@ -43,7 +46,7 @@ export default Vue.extend({
 	},
   computed: {
     ...mapState({
-			allFriendsMap: (state: any) => state.user.allFriendsMap,
+			friendsMap: (state: any) => state.user.friendsMap,
 			messages:  (state: any) => state.message.messages,
 		}),
 		list() {
@@ -52,10 +55,17 @@ export default Vue.extend({
 				const { friend_id, list } = item;
 				const last_message = list[list.length - 1];
 				last_message.time = Util.formatTime(last_message.create_time);
+				let unread_number = 0;
+				list.forEach(m => {
+					if (!m.is_read) {
+						unread_number += 1;
+					}
+				})
 				res.push({
 					...item,
-					friend_info: this.allFriendsMap[friend_id],
+					friend_info: this.friendsMap[friend_id],
 					last_message,
+					unread_number,
 				});
 			});
 			return res;

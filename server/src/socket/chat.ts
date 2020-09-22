@@ -6,7 +6,7 @@ import Group from '../service/group';
 import Relation from '../service/relation';
 import Message from '../service/message';
 import config from '../config';
-import { Message as MessageData, User as UserData } from '../interface/entity';
+import { Message as MessageData } from '../interface/entity';
 import { CHAT_MESSAGE, RESPONSE_MESSAGE, SOCKET_RESPONSE } from '../interface/response';
 import {
   ENUM_MESSAGE_DIST_TYPE, ENUM_MESSAGE_CONTENT_TYPE, ENUM_SOCKET_MESSAGE_TYPE, ENUM_MESSAGE_RESPONSE_STATUS,
@@ -35,6 +35,7 @@ export default class Chat {
       const { token } = query;
       const user: any = jwt.verify(token, config.jwt.secret);
       const { uid } = user;
+      await User.updateUserClientId(uid, socket.id);
       this.onMessage(socket, uid);
     });
   }

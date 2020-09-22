@@ -1,7 +1,6 @@
 import { ActionContext } from 'vuex';
 import request from '../../helper/request';
-// import Chat from '../../socket/chat';
-import { MessageRecord } from '../../interface/chat';
+import { MessageRecord } from '../../interface/entity';
 
 interface State {
   messages: {
@@ -37,7 +36,7 @@ const mutations = {
 const actions = {
   async getUnreadMessage({ commit }: ActionContext<State, any>) {
     const [err, res] = await request({
-      url: '/user/unread-message',
+      url: '/user/unreadMessage',
       method: 'get',
     });
     if (res && res.errno === 200) {
