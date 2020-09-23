@@ -33,7 +33,7 @@
 import Vue from 'vue';
 import { mapState } from 'vuex';
 import Util from '../../helper/util';
-// import '../../socket/chat';
+// import Chat from '../../socket/chat';
 // import { FriendInfo } from '../../interface/chat';
 // import { MessageRecord } from '../../interface/entity';
 

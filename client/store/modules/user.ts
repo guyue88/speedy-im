@@ -2,6 +2,7 @@ import { ActionContext } from 'vuex';
 import request from '../../helper/request';
 import { User } from '../../interface/entity';
 import { FriendInfo } from '../../interface/chat';
+import Chat from '../../socket/chat';
 
 declare let uni: any;
 
@@ -65,6 +66,8 @@ const actions = {
       await dispatch('getFriendsList');
       commit('SET_USER_INFO', { userInfo: res.data });
       uni.setStorageSync('token', res.data.token);
+      // 登陆成功后，建立ws连接
+      Chat.setup();
       return {
         errno: 200,
         errmsg: '',
@@ -84,6 +87,8 @@ const actions = {
     if (res && res.errno === 200) {
       await dispatch('getFriendsList');
       commit('SET_USER_INFO', { userInfo: res.data });
+      // 登陆成功后，建立ws连接
+      Chat.setup();
       return {
         errno: 200,
         errmsg: '',

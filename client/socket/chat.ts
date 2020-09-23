@@ -18,12 +18,11 @@ class Chat {
   public static getInstance() {
     if (!this.instance) {
       this.instance = new Chat();
-      this.instance.setup();
     }
     return this.instance;
   }
 
-  setup () {
+  setup() {
     this.token = uni.getStorageSync('token');
 
     if (!this.token) return;

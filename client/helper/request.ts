@@ -3,23 +3,16 @@ import config from '../config';
 declare let uni: any;
 
 export default async function request(params: any) {
-  const token = uni.getStorageSync('token');
-  if (token) {
-    params.data = params.data || {};
-    params.data.token = token;
-  }
-
   const { baseUrl } = config;
   const url = params.url;
   delete params.url;
+
+  const token = uni.getStorageSync('token');
   const defaultHeader = {
     'Content-Type': 'application/x-www-form-urlencoded',
+    'x-access-token': token,
   };
-  if (!params.data) {
-    params.data = {};
-  }
-  // cors插件不支持这个请求头
-  // params.data.token && (defaultHeader['x-token'] = params.data.token);
+  params.data = params.data || {};
   const options = {
     url: /^http/.test(url) ? url : `${baseUrl}${url}`,
     header: defaultHeader,
