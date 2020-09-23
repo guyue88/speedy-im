@@ -2,7 +2,8 @@
 import io from '@hyoga/uni-socket.io';
 import config from '../config';
 import { ENUM_MESSAGE_CONTENT_TYPE, ENUM_MESSAGE_DIST_TYPE } from '../enum/message';
-import { User, FriendInfo, Message } from '../interface/entity';
+import { User, FriendInfo, Message, MessageRecord } from '../interface/entity';
+import store from "../store";
 
 declare let uni: any;
 
@@ -60,8 +61,14 @@ class Chat {
       content_type: ENUM_MESSAGE_CONTENT_TYPE.TEXT,
       content,
       create_time: +new Date(),
-    }
+    };
+    const record: MessageRecord = {
+      id: +new Date(),
+      ...message,
+      is_owner: true,
+    };
     this.socket.emit('message', { message });
+    store.dispatch('message/setMessage', { messages: [record] })
   }
 }
 
