@@ -43,6 +43,10 @@ const actions = {
       commit('SET_USER_MESSAGES', { messages: res.data });
     }
   },
+  async setMessage({ commit }: ActionContext<State, any>, payload: { messages: MessageRecord[] }) {
+    const { messages } = payload;
+    commit('SET_USER_MESSAGES', { messages });
+  }
 };
 
 export default {
