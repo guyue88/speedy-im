@@ -1,7 +1,6 @@
 import { ActionContext } from 'vuex';
 import request from '../../helper/request';
-import { User } from '../../interface/entity';
-import { FriendInfo } from '../../interface/chat';
+import { User, FriendInfo } from '../../interface/entity';
 import Chat from '../../socket/chat';
 
 declare let uni: any;
@@ -33,8 +32,8 @@ const mutations = {
       return {
         key,
         list: list.map(l => {
-          map[l.friend_id] = l;
-          return l.friend_id;
+          map[l.id] = l;
+          return l.id;
         }),
       }
     });

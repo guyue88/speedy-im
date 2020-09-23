@@ -8,32 +8,32 @@
       :show-scrollbar="false"
     >
       <view
-        v-for="(item, index) in list"
+        v-for="(item, index) in messages"
         :key="item.id"
         class="chat-wrap"
         :class="[index === 0 ? 'chat-first-wrap' : '']"
         :id="`message_${item.id}`"
       >
         <view
-          :class="[item.message_belong === 3 ? 'chat-mine' : 'chat-friend']"
+          :class="[item.is_owner ? 'chat-mine' : 'chat-friend']"
           v-if="item.message_type !== 1"
         >
-          <view class="chat-message-avatar" :class="[item.message_belong === 3 ? 'chat-mine-message-avatar' : '']">
-            <image :src="item.message_belong === 3 ? userInfo.avatar : friendInfo.avatar" class="chat-message-avatar-image" />
+          <view class="chat-message-avatar" :class="[item.is_owner ? 'chat-mine-message-avatar' : '']">
+            <image :src="item.is_owner ? userInfo.avatar : friendInfo.avatar" class="chat-message-avatar-image" />
           </view>
-          <view class="chat-message-text-wrap" :class="[item.message_belong === 3 ? 'chat-mine-message-text-wrap' : '']">
+          <view class="chat-message-text-wrap" :class="[item.is_owner ? 'chat-mine-message-text-wrap' : '']">
             <view class="chat-message-name">
-              <text class="chat-message-name-text">{{ item.message_belong === 3 ? userInfo.name : friendInfo.name }}</text>
+              <text class="chat-message-name-text">{{ item.is_owner ? userInfo.nickname : friendInfo.remark || friendInfo.nickname }}</text>
             </view>
-            <view class="chat-message-content" :class="[item.message_belong === 3 ? 'chat-mine-message-content' : '']">
-              <text class="chat-message-content-text" :class="[item.message_belong === 3 ? 'chat-mine-message-content-text' : '']">{{item.content}}</text>
-              <view :class="[item.message_belong === 3 ? 'chat-mine-message-content-text-bubble' : 'chat-message-content-text-bubble']"></view>
+            <view class="chat-message-content" :class="[item.is_owner ? 'chat-mine-message-content' : '']">
+              <text class="chat-message-content-text" :class="[item.is_owner ? 'chat-mine-message-content-text' : '']">{{item.content}}</text>
+              <view :class="[item.is_owner ? 'chat-mine-message-content-text-bubble' : 'chat-message-content-text-bubble']"></view>
             </view>
           </view>
         </view>
-        <view class="chat-system" v-if="item.message_type === 1">
+        <!-- <view class="chat-system" v-if="item.message_type === 1">
           <text class="chat-system-text">{{item.content}}</text>
-        </view>
+        </view> -->
       </view>
     </scroll-view>
 
@@ -47,6 +47,8 @@
           :confirm-hold="true"
           :cursor-spacing="56"
           :hold-keyboard="true"
+          :adjust-position="false"
+          @confirm="send"
         />
         <view class="chat-tool-icons">
           <image src="@/static/nvue/emoji.png" class="chat-tool-icon" />
@@ -57,88 +59,48 @@
   </view>
 </template>
 
-<script>
-// import Socket from '@/socket/chat';
+<script lang="ts">
+import { mapState } from 'vuex';
+import Chat from '@/socket/chat';
 import { MessageType, SendStatus, UserType, ContentType, MessageBelong } from '@/interface/enum';
 
 export default {
   name: 'Chat',
   data() {
-    const list = [
-      {
-        id: 1000,
-        content: '你好，我是小白杨',
-        content_type: ContentType.TEXT,
-        create_time: 1590550165320,
-        is_read: 1,
-        is_received: 1,
-        message_type: MessageType.CHAT,
-        sender: {
-          id: 1000,
-          type: UserType.FRIEND,
-        },
-        receiver: {
-          id: 1001,
-          type: UserType.SELF,
-        },
-        send_status: SendStatus.SUCCESS,
-        message_belong: MessageBelong.FRIEND,
-      }, {
-        id: 1001,
-        content: '你好，很高兴认识你',
-        content_type: ContentType.TEXT,
-        create_time: 1590550165320,
-        is_read: 1,
-        is_received: 1,
-        message_type: MessageType.CHAT,
-        sender: {
-          id: 1001,
-          type: UserType.SELF,
-        },
-        receiver: {
-          id: 1000,
-          type: UserType.FRIEND,
-        },
-        send_status: SendStatus.SUCCESS,
-        message_belong: MessageBelong.SELF,
-      }, {
-        id: 1002,
-        content: '以上是历史消息',
-        content_type: ContentType.TEXT,
-        create_time: 1590550165320,
-        is_read: 1,
-        is_received: 1,
-        message_type: MessageType.SYSTEM,
-        sender: {
-          id: 100,
-          type: UserType.SYSTEM,
-        },
-        receiver: {
-          id: 1001,
-          type: UserType.SELF,
-        },
-        send_status: SendStatus.SUCCESS,
-        message_belong: MessageBelong.SYSTEM,
-      },
-    ]
     return {
       message: '',
-      uid: 1001,
-      userInfo: {
-        id: 1001,
-        name: '小白杨',
-				avatar: 'https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/3.jpg',
-      },
-      friendInfo: {
-        id: 1000,
-        name: '楠宝宝',
-        avatar: 'https://cool-comm.oss-cn-shenzhen.aliyuncs.com/show/imgs/chat/avatar/4.jpg',
-      },
-      list,
+      friendId: '',
     }
   },
-  onLoad() {
-    
+  computed: {
+    ...mapState({
+      userInfo: (state: any) => state.user.userInfo,
+      friendInfo(state: any) {
+        return state.user.friendsMap[this.friendId];
+      },
+			messages(state: any) {
+        const { messages } = state.message;
+        const friendMessages = messages.find(i => i.friend_id === +this.friendId);
+        if (!friendMessages) return null;
+        return friendMessages.list;
+      },
+		}),
+  },
+  onLoad(params: any) {
+    const { uid } = params;
+    this.friendId = uid;
+  },
+  methods: {
+    send() {
+      const message = this.message.trim();
+      if (!message) return;
+      Chat.sendMessage(message, {
+        userInfo: this.userInfo,
+        friendInfo: this.friendInfo,
+        isGroup: false,
+      });
+      this.message = '';
+    }
   }
 };
 </script>

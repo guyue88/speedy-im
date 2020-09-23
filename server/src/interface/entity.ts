@@ -5,7 +5,7 @@ export interface Message {
   user_id: number;
   dist_id: number;
   dist_type: ENUM_MESSAGE_DIST_TYPE;
-  type: ENUM_MESSAGE_CONTENT_TYPE;
+  content_type: ENUM_MESSAGE_CONTENT_TYPE;
   is_received?: number;
   is_sent?: number;
   content: string;
