@@ -26,7 +26,7 @@ const mutations = {
           list: [item],
         });
       } else {
-        msg.list.push(item);
+        !msg.list.find(l => l.id === item.id) && msg.list.push(item);
       }
     });
     state.messages = messages;

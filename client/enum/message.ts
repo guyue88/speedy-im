@@ -22,6 +22,7 @@ export enum ENUM_SOCKET_MESSAGE_TYPE {
 // 消息发送成功与否的状态
 export enum ENUM_MESSAGE_RESPONSE_STATUS {
   SUCCESS = 1000,
+  ERROR,
   INVALID_PARAMS,
   USER_NOT_EXIST,
   NOT_FRIEND_OF_OTHER, // 自己不是对方好友

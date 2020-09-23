@@ -6,12 +6,12 @@ export interface Message {
   user_id: number;
   dist_id: number;
   dist_type: ENUM_MESSAGE_DIST_TYPE;
-  type: ENUM_MESSAGE_CONTENT_TYPE;
+  content_type: ENUM_MESSAGE_CONTENT_TYPE;
   is_received?: number;
   is_sent?: number;
   content: string;
   create_time: number;
-  status: number;
+  status?: number;
 }
 
 
@@ -30,6 +30,12 @@ export interface User {
 }
 
 
+// 扩展的接口
 export interface MessageRecord extends Message {
   is_owner: boolean;
+}
+
+export interface FriendInfo extends User {
+  uid: number;
+  remark: string;
 }
