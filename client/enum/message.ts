@@ -1,5 +1,3 @@
-// 与后端一致
-
 export enum ENUM_MESSAGE_DIST_TYPE {
   PRIVATE = 1,
   GROUP = 2,

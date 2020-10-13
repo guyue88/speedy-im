@@ -11,7 +11,7 @@
 		<view class="main">
 			<u-search height="70" :show-action="false" :disabled="true" />
 			<view class="list">
-				<view class="list-item" v-for="(item, index) in list" :key="index" @click="chat2user(item.friend_id)">
+				<view class="list-item" v-for="(item, index) in list" :key="index" @click="chat2user(item.friend_info.friend_id)">
 					<view class="avatar">
 						<image :src="item.friend_info.avatar" class="image">
 						<u-badge type="error" :count="item.unread_number" :offset="[-10, -10]" />

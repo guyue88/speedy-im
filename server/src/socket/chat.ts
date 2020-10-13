@@ -52,7 +52,9 @@ export default class Chat {
       const { message } = payload;
       log('收到消息：', message);
       const {
-        dist_id, dist_type = ENUM_MESSAGE_DIST_TYPE.PRIVATE, content,
+        dist_id,
+        dist_type = ENUM_MESSAGE_DIST_TYPE.PRIVATE,
+        content,
       } = message;
 
       const response_status_message: RESPONSE_MESSAGE = {
@@ -64,6 +66,7 @@ export default class Chat {
         message: response_status_message,
       };
 
+      // 参数错误
       if (!dist_id || !content) {
         response_status_message.status = ENUM_MESSAGE_RESPONSE_STATUS.INVALID_PARAMS;
         socket.emit(id, response);
@@ -81,7 +84,11 @@ export default class Chat {
     const { id } = socket;
     const { message } = payload;
     const {
-      dist_id, dist_type = ENUM_MESSAGE_DIST_TYPE.PRIVATE, content_type = ENUM_MESSAGE_CONTENT_TYPE.TEXT, content,
+      dist_id,
+      dist_type = ENUM_MESSAGE_DIST_TYPE.PRIVATE,
+      content_type = ENUM_MESSAGE_CONTENT_TYPE.TEXT,
+      content,
+      hash,
     } = message;
     const create_time = +new Date();
     const response_status_message: RESPONSE_MESSAGE = {
@@ -115,6 +122,7 @@ export default class Chat {
       return;
     }
     const final_message: MessageData = {
+      hash,
       user_id: uid,
       dist_id,
       dist_type,
@@ -133,13 +141,13 @@ export default class Chat {
     }
 
     // 告诉用户，消息发送成功
-    response_status_message.data = { id: result.insertId };
+    response_status_message.data = { id: result.insertId, hash };
     socket.emit(id, response);
 
     final_message.id = result.insertId;
 
     if (!dist_info.client_id) return;
-    // 对方在线
+    // 对方在线，发送消息给对方
     const user_message: CHAT_MESSAGE = {
       type: ENUM_MESSAGE_DIST_TYPE.PRIVATE,
       sender_id: uid,
@@ -151,13 +159,18 @@ export default class Chat {
       message: user_message,
     };
     socket.emit(dist_info.client_id, user_response);
+    // TODO: 更新消息发送状态
   }
 
   private async handleGroupMessage(socket: socketIO.Socket, uid: number, payload: { message: MessageData }) {
     const { id } = socket;
     const { message } = payload;
     const {
-      dist_id, dist_type = ENUM_MESSAGE_DIST_TYPE.PRIVATE, content_type = ENUM_MESSAGE_CONTENT_TYPE.TEXT, content,
+      dist_id,
+      dist_type = ENUM_MESSAGE_DIST_TYPE.PRIVATE,
+      content_type = ENUM_MESSAGE_CONTENT_TYPE.TEXT,
+      content,
+      hash,
     } = message;
     const create_time = +new Date();
     const response_status_message: RESPONSE_MESSAGE = {
@@ -177,6 +190,7 @@ export default class Chat {
       return;
     }
     const final_message: MessageData = {
+      hash,
       user_id: uid,
       dist_id,
       dist_type,
