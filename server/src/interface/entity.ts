@@ -27,3 +27,8 @@ export interface User {
   create_time: number;
   status: number;
 }
+
+export interface FriendInfo extends User {
+  uid: number;
+  remark: string;
+}
