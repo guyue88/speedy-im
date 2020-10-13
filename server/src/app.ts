@@ -14,6 +14,7 @@ import userRouter from './routes/user';
 import Util from './helper/util';
 import SocketAuth from './socket/auth';
 import Chat from './socket/chat';
+import BlackList from './helper/jwt.blacklist';
 
 const log = debug('speedy-im');
 const isDev = process.env.NODE_ENV === 'development';
@@ -38,7 +39,16 @@ app.use(
   expressJwt({
     secret: jwt.secret,
     algorithms: ['HS256'],
-    getToken: (req: Request) => req.body.token || req.query.token || req.headers['x-access-token'],
+    getToken: Util.getToken,
+    isRevoked(req, payload, done) {
+      const token = Util.getToken(req);
+      // const { exp } = payload;
+      const isRevoked = BlackList.isTokenInList(token);
+      if (isRevoked) {
+        return done('invalid token', true);
+      }
+      return done(null, false);
+    },
   })
     .unless({
       path: jwt.routeWhiteList,

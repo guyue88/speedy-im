@@ -1,7 +1,10 @@
+import { Request } from 'express';
 import crypto from 'crypto';
 import config from '../config';
 
 export default class Util {
+  public static getToken = (req: Request): string => req.headers['x-access-token'] || req.body.token || req.query.token;
+
   public static success(data: any, errno = 200, errmsg = '') {
     return {
       data,

@@ -6,8 +6,8 @@ import config from '../config';
 import Util from '../helper/util';
 import User from '../service/user';
 import Message from '../service/message';
-import { Message as MessageData } from '../interface/entity';
-// import db from '../lib/db';
+import { Message as MessageData, FriendInfo } from '../interface/entity';
+import BlackList from '../helper/jwt.blacklist';
 
 const log = debug('speedy-im user');
 
@@ -120,7 +120,18 @@ router.post('/signUp', async (req, res) => {
 /**
  * 注销登录
  */
-router.put('/signOut', async (req, res) => res.send('退出登录'));
+router.put('/signOut', async (req, res) => {
+  const { user } = req as any;
+  const { uid } = user || {};
+  const token = Util.getToken(req);
+  const payload = jwt.decode(token);
+  if (Object.prototype.toString.call(payload) === '[object Object]') {
+    const exp: number = payload && (payload as any).exp;
+    BlackList.add(token, exp);
+  }
+  await User.updateUserToken(uid, { token: '', platform: '' });
+  return res.json(Util.success('ok'));
+});
 
 /**
  * 获取好友列表
@@ -139,8 +150,8 @@ router.get('/friends', async (req, res) => {
   let final: { key: string; list: any[] }[] = [];
   const obj: any = {};
   const others: any = [];
-  data.forEach((item: any) => {
-    const name = item.remark || item.friend_name;
+  data.forEach((item: FriendInfo) => {
+    const name = item.remark || item.nickname;
     const p = pinyin(name, {
       style: pinyin.STYLE_FIRST_LETTER,
     });

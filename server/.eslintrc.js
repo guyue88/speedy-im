@@ -45,5 +45,6 @@ module.exports = {
     'max-len': ['error', { code: 150 }],
     'no-mixed-operators': 'off',
     camelcase: 'off',
+    'consistent-return': 'off',
   },
 };

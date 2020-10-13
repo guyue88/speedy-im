@@ -6,8 +6,8 @@
 # https://github.com/sequelpro/sequelpro
 #
 # Host: 127.0.0.1 (MySQL 5.6.49)
-# Database: spededy-im
-# Generation Time: 2020-09-22 02:38:25 +0000
+# Database: speedy-im
+# Generation Time: 2020-10-13 06:59:08 +0000
 # ************************************************************
 
 
@@ -205,11 +205,14 @@ CREATE TABLE `view_user_friends` (
    `uid` BIGINT(20) NOT NULL,
    `friend_id` BIGINT(20) NOT NULL,
    `remark` VARCHAR(255) NOT NULL DEFAULT '',
-   `status` INT(2) NOT NULL DEFAULT '1',
-   `friend_name` VARCHAR(255) NOT NULL DEFAULT '',
-   `friend_mobile` BIGINT(11) NOT NULL,
-   `friend_avatar` VARCHAR(255) NULL DEFAULT '',
-   `friend_sex` TINYINT(3) NOT NULL DEFAULT '2'
+   `nickname` VARCHAR(255) NOT NULL DEFAULT '',
+   `mobile` BIGINT(11) NOT NULL,
+   `avatar` VARCHAR(255) NULL DEFAULT '',
+   `sex` TINYINT(3) NOT NULL DEFAULT '2',
+   `client_id` VARCHAR(255) NULL DEFAULT NULL,
+   `client_type` VARCHAR(50) NULL DEFAULT NULL,
+   `create_time` BIGINT(20) NOT NULL,
+   `status` INT(2) NOT NULL DEFAULT '1'
 ) ENGINE=MyISAM;
 
 
@@ -249,11 +252,14 @@ AS SELECT
    `R`.`uid` AS `uid`,
    `R`.`friend_id` AS `friend_id`,
    `R`.`remark` AS `remark`,
-   `R`.`status` AS `status`,
-   `U`.`nickname` AS `friend_name`,
-   `U`.`mobile` AS `friend_mobile`,
-   `U`.`avatar` AS `friend_avatar`,
-   `U`.`sex` AS `friend_sex`
+   `U`.`nickname` AS `nickname`,
+   `U`.`mobile` AS `mobile`,
+   `U`.`avatar` AS `avatar`,
+   `U`.`sex` AS `sex`,
+   `U`.`client_id` AS `client_id`,
+   `U`.`client_type` AS `client_type`,
+   `U`.`create_time` AS `create_time`,
+   `R`.`status` AS `status`
 FROM (`user` `U` join `relation` `R` on((`U`.`id` = `R`.`friend_id`)));
 
 
