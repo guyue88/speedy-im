@@ -7,10 +7,10 @@ declare let uni: any;
 
 interface State {
   userInfo: User;
-  friendsMap: Record<User['id'], FriendInfo>;
+  friendsMap: Record<number, FriendInfo>;
   friends: {
     key: string; // 用户名首字母
-    list: User['id'][]
+    list: number[]
   }[];
 }
 
@@ -32,8 +32,9 @@ const mutations = {
       return {
         key,
         list: list.map(l => {
-          map[l.id] = l;
-          return l.id;
+          l.nickname = l.remark || l.nickname;
+          map[l.friend_id] = l;
+          return l.friend_id;
         }),
       }
     });
