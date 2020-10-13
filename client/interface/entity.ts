@@ -3,6 +3,7 @@ import { ENUM_MESSAGE_CONTENT_TYPE, ENUM_MESSAGE_DIST_TYPE } from '../enum/messa
 
 export interface Message {
   id?: number;
+  hash: string;
   user_id: number;
   dist_id: number;
   dist_type: ENUM_MESSAGE_DIST_TYPE;

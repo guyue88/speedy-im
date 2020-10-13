@@ -23,7 +23,7 @@
           </view>
           <view class="chat-message-text-wrap" :class="[item.is_owner ? 'chat-mine-message-text-wrap' : '']">
             <view class="chat-message-name">
-              <text class="chat-message-name-text">{{ item.is_owner ? userInfo.nickname : friendInfo.remark || friendInfo.nickname }}</text>
+              <text class="chat-message-name-text">{{ item.is_owner ? userInfo.nickname : friendInfo.nickname }}</text>
             </view>
             <view class="chat-message-content" :class="[item.is_owner ? 'chat-mine-message-content' : '']">
               <text class="chat-message-content-text" :class="[item.is_owner ? 'chat-mine-message-content-text' : '']">{{item.content}}</text>
