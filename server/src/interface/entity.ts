@@ -30,5 +30,6 @@ export interface User {
 
 export interface FriendInfo extends User {
   uid: number;
+  friend_id: number;
   remark: string;
 }

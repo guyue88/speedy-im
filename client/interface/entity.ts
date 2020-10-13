@@ -37,5 +37,6 @@ export interface MessageRecord extends Message {
 
 export interface FriendInfo extends User {
   uid: number;
+  friend_id: number;
   remark: string;
 }

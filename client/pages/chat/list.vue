@@ -13,12 +13,12 @@
 			<view class="list">
 				<view class="list-item" v-for="(item, index) in list" :key="index" @click="chat2user(item.friend_id)">
 					<view class="avatar">
-						<image :src="item.friend_info.friend_avatar" class="image">
+						<image :src="item.friend_info.avatar" class="image">
 						<u-badge type="error" :count="item.unread_number" :offset="[-10, -10]" />
 					</view>
 					<view class="wrap">
 						<view class="content">
-							<view class="name">{{item.friend_info.remark || item.friend_info.friend_name}}</view>
+							<view class="name">{{item.friend_info.nickname}}</view>
 							<view class="message">{{item.last_message.content}}</view>
 						</view>
 						<view class="time">{{item.last_message.time}}</view>
@@ -59,7 +59,6 @@ export default Vue.extend({
 					}
 				})
 				res.push({
-					...item,
 					friend_info: this.friendsMap[friend_id],
 					last_message,
 					unread_number,

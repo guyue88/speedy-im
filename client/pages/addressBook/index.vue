@@ -29,9 +29,9 @@
 					<view class="list">
 						<view class="list-item" v-for="(fid, index) in item.list" :key="index" @click="chat2user(fid)">
 							<view class="avatar">
-								<image :src="friendsMap[fid].friend_avatar" class="image" />
+								<image :src="friendsMap[fid].avatar" class="image" />
 							</view>
-							<view class="name">{{friendsMap[fid].remark || friendsMap[fid].friend_name}}</view>
+							<view class="name">{{friendsMap[fid].nickname}}</view>
 						</view>
 					</view>
 				</view>

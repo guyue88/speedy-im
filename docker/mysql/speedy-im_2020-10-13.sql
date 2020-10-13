@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.49)
 # Database: speedy-im
-# Generation Time: 2020-10-13 06:59:08 +0000
+# Generation Time: 2020-10-13 09:20:45 +0000
 # ************************************************************
 
 
@@ -75,9 +75,9 @@ VALUES
 	(1,1000,1001,1,0,0,'text','你好',1591349594288,1),
 	(2,1000,1002,1,0,0,'text','你也好',1591349594288,1),
 	(3,1000,1001,1,0,0,'text','在吗？',1591355800809,1),
-	(4,1001,1000,1,0,0,'text','你好',1591349594288,1),
-	(5,1002,1000,1,0,0,'text','你好',1591349594288,1),
-	(6,1003,1000,1,0,0,'text','你好',1591349594288,1);
+	(4,1001,1000,1,0,1,'text','你好',1591349594288,1),
+	(5,1002,1000,1,0,1,'text','你好',1591349594288,1),
+	(6,1003,1000,1,0,1,'text','你好',1591349594288,1);
 
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -161,7 +161,7 @@ LOCK TABLES `user` WRITE;
 
 INSERT INTO `user` (`id`, `nickname`, `mobile`, `password`, `avatar`, `sex`, `token`, `client_id`, `client_type`, `create_time`, `status`)
 VALUES
-	(1000,'罗老魔',13600000000,'81c4369bea82d8daafd75818497dc962033a1dcc','https://im.wangcai.me/speedy_avatar_6.jpg',0,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEwMDAsImlhdCI6MTU5MjU1MjUxNSwiZXhwIjoxNTkzMTU3MzE1fQ.te09pTgrB2AG29JdGMTNLIsaKgYgY6SF0OtVOaKLxb8',NULL,'android',1591349594288,1),
+	(1000,'罗老魔',13600000000,'81c4369bea82d8daafd75818497dc962033a1dcc','https://im.wangcai.me/speedy_avatar_6.jpg',0,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEwMDAsImlhdCI6MTYwMjU3OTg3NiwiZXhwIjoxNjAzMTg0Njc2fQ.KMXlQ6YRfcsBzQsni5Ys1DTz4JpYT2xhlzYVCP6Vrdk','/chat#mWc6dtgBeRrnBebDAAAD','android',1591349594288,1),
 	(1001,'小七',13600000001,'81c4369bea82d8daafd75818497dc962033a1dcc','https://im.wangcai.me/speedy_avatar_1.jpg',1,NULL,NULL,NULL,1591349594288,1),
 	(1002,'小白',13600000002,'81c4369bea82d8daafd75818497dc962033a1dcc','https://im.wangcai.me/speedy_avatar_2.jpg',1,NULL,NULL,NULL,1591349594288,1),
 	(1003,'小青',13600000003,'81c4369bea82d8daafd75818497dc962033a1dcc','https://im.wangcai.me/speedy_avatar_3.jpg',1,NULL,NULL,NULL,1591349594288,1);
@@ -202,6 +202,7 @@ UNLOCK TABLES;
 DROP VIEW IF EXISTS `view_user_friends`;
 
 CREATE TABLE `view_user_friends` (
+   `id` BIGINT(20) UNSIGNED NOT NULL DEFAULT '0',
    `uid` BIGINT(20) NOT NULL,
    `friend_id` BIGINT(20) NOT NULL,
    `remark` VARCHAR(255) NOT NULL DEFAULT '',
@@ -249,6 +250,7 @@ DROP TABLE `view_user_friends`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `view_user_friends`
 AS SELECT
+   `R`.`id` AS `id`,
    `R`.`uid` AS `uid`,
    `R`.`friend_id` AS `friend_id`,
    `R`.`remark` AS `remark`,
