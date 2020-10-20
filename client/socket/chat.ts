@@ -60,8 +60,8 @@ class Chat {
     const { status, data } = message;
     switch(status) {
       case ENUM_MESSAGE_RESPONSE_STATUS.SUCCESS:
-        // TODO: 更新消息ID以及错误处理
-        console.log('成功', data);
+        store.dispatch('message/updateMessage', { messages: data });
+        break;
     }
   }
 

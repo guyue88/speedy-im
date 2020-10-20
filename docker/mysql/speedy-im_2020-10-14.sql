@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.49)
 # Database: speedy-im
-# Generation Time: 2020-10-13 09:20:45 +0000
+# Generation Time: 2020-10-14 10:09:49 +0000
 # ************************************************************
 
 
@@ -56,11 +56,12 @@ DROP TABLE IF EXISTS `message`;
 CREATE TABLE `message` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL,
+  `hash` varchar(40) NOT NULL DEFAULT '',
   `dist_id` bigint(20) NOT NULL COMMENT '群聊是id是群的id',
   `dist_type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1 - 私聊 2 - 群聊',
   `is_received` tinyint(2) NOT NULL DEFAULT '0' COMMENT '对方是否收到',
   `is_sent` tinyint(2) NOT NULL DEFAULT '0' COMMENT '是否已经发送给对方',
-  `type` varchar(20) NOT NULL DEFAULT 'text' COMMENT 'text,audio,image,video',
+  `content_type` varchar(20) NOT NULL DEFAULT 'text' COMMENT 'text,audio,image,video',
   `content` text NOT NULL COMMENT '内容或者地址',
   `create_time` bigint(20) NOT NULL,
   `status` tinyint(2) NOT NULL DEFAULT '1',
@@ -70,14 +71,16 @@ CREATE TABLE `message` (
 LOCK TABLES `message` WRITE;
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
 
-INSERT INTO `message` (`id`, `user_id`, `dist_id`, `dist_type`, `is_received`, `is_sent`, `type`, `content`, `create_time`, `status`)
+INSERT INTO `message` (`id`, `user_id`, `hash`, `dist_id`, `dist_type`, `is_received`, `is_sent`, `content_type`, `content`, `create_time`, `status`)
 VALUES
-	(1,1000,1001,1,0,0,'text','你好',1591349594288,1),
-	(2,1000,1002,1,0,0,'text','你也好',1591349594288,1),
-	(3,1000,1001,1,0,0,'text','在吗？',1591355800809,1),
-	(4,1001,1000,1,0,1,'text','你好',1591349594288,1),
-	(5,1002,1000,1,0,1,'text','你好',1591349594288,1),
-	(6,1003,1000,1,0,1,'text','你好',1591349594288,1);
+	(1,1000,'',1001,1,0,0,'text','你好',1591349594288,1),
+	(2,1000,'',1002,1,0,0,'text','你也好',1591349594288,1),
+	(3,1000,'',1001,1,0,0,'text','在吗？',1591355800809,1),
+	(4,1001,'',1000,1,0,1,'text','你好',1591349594288,1),
+	(5,1002,'',1000,1,0,1,'text','你好',1591349594288,1),
+	(6,1003,'',1000,1,0,1,'text','你好',1591349594288,1),
+	(7,1000,'a7dbd60473e1fad7e4a2cb12d15876d9',1002,1,0,0,'text','dada',1602592829490,1),
+	(8,1000,'b8ff71585ec8b878872718ebee9e401d',1002,1,0,0,'text','12',1602593358750,1);
 
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -161,7 +164,7 @@ LOCK TABLES `user` WRITE;
 
 INSERT INTO `user` (`id`, `nickname`, `mobile`, `password`, `avatar`, `sex`, `token`, `client_id`, `client_type`, `create_time`, `status`)
 VALUES
-	(1000,'罗老魔',13600000000,'81c4369bea82d8daafd75818497dc962033a1dcc','https://im.wangcai.me/speedy_avatar_6.jpg',0,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEwMDAsImlhdCI6MTYwMjU3OTg3NiwiZXhwIjoxNjAzMTg0Njc2fQ.KMXlQ6YRfcsBzQsni5Ys1DTz4JpYT2xhlzYVCP6Vrdk','/chat#mWc6dtgBeRrnBebDAAAD','android',1591349594288,1),
+	(1000,'罗老魔',13600000000,'81c4369bea82d8daafd75818497dc962033a1dcc','https://im.wangcai.me/speedy_avatar_6.jpg',0,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEwMDAsImlhdCI6MTYwMjU5MjI1NywiZXhwIjoxNjAzMTk3MDU3fQ.5n49dPHRqCf8i82rYlL1YknrIeCqSWhrNeUvFjEE9jA','/chat#sy6u7rmq0Ag-uxH-AAAC','android',1591349594288,1),
 	(1001,'小七',13600000001,'81c4369bea82d8daafd75818497dc962033a1dcc','https://im.wangcai.me/speedy_avatar_1.jpg',1,NULL,NULL,NULL,1591349594288,1),
 	(1002,'小白',13600000002,'81c4369bea82d8daafd75818497dc962033a1dcc','https://im.wangcai.me/speedy_avatar_2.jpg',1,NULL,NULL,NULL,1591349594288,1),
 	(1003,'小青',13600000003,'81c4369bea82d8daafd75818497dc962033a1dcc','https://im.wangcai.me/speedy_avatar_3.jpg',1,NULL,NULL,NULL,1591349594288,1);

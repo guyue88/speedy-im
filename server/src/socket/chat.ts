@@ -101,8 +101,8 @@ export default class Chat {
     };
 
     // 判断对方是否存在
-    const [, dist_info] = await User.getUserInfoById(dist_id);
-    if (!dist_info) {
+    const [, friend_info] = await User.getUserInfoById(dist_id);
+    if (!friend_info) {
       response_status_message.status = ENUM_MESSAGE_RESPONSE_STATUS.USER_NOT_EXIST;
       socket.emit(id, response);
       return;
@@ -130,7 +130,7 @@ export default class Chat {
       content,
       create_time,
       status: 1,
-      is_sent: dist_info.client_id ? 1 : 0,
+      is_sent: friend_info.client_id ? 1 : 0,
     };
     const [error, result] = await Message.createMessage(final_message);
     if (error) {
@@ -141,12 +141,12 @@ export default class Chat {
     }
 
     // 告诉用户，消息发送成功
-    response_status_message.data = { id: result.insertId, hash };
+    response_status_message.data = { id: result.insertId, hash, friend_id: dist_id };
     socket.emit(id, response);
 
     final_message.id = result.insertId;
 
-    if (!dist_info.client_id) return;
+    if (!friend_info.client_id) return;
     // 对方在线，发送消息给对方
     const user_message: CHAT_MESSAGE = {
       type: ENUM_MESSAGE_DIST_TYPE.PRIVATE,
@@ -158,7 +158,7 @@ export default class Chat {
       message_type: ENUM_SOCKET_MESSAGE_TYPE.PRIVATE_CHAT,
       message: user_message,
     };
-    socket.emit(dist_info.client_id, user_response);
+    socket.emit(friend_info.client_id, user_response);
     // TODO: 更新消息发送状态
   }
 
