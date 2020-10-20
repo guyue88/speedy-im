@@ -67,8 +67,9 @@ export default Vue.extend({
 			return res;
 		}
 	},
-	onShow() {
-		this.$store.dispatch('message/getUnreadMessage');
+	async onShow() {
+		await this.$store.dispatch('user/getFriendsList');
+		await this.$store.dispatch('message/getUnreadMessage');
 	},
 	methods: {
 		showMenu() {

@@ -31,6 +31,23 @@ const mutations = {
     });
     state.messages = messages;
   },
+  UPDATE_MESSAGE(state: State, { messages: data }: { messages: { id: number, hash: string, friend_id: number } }) {
+    const messages = [...state.messages];
+    const { id, hash, friend_id } = data;
+    for (let i = 0, len = messages.length; i < len;i++) {
+      const item = messages[i];
+      if (+item.friend_id === +friend_id) {
+        item.list = item.list.map(m => {
+          if (m.hash === hash) {
+            m.id = id;
+          }
+          return m;
+        });
+        break;
+      }
+    }
+    state.messages = messages;
+  },
 };
 
 const actions = {
@@ -46,6 +63,10 @@ const actions = {
   async setMessage({ commit }: ActionContext<State, any>, payload: { messages: MessageRecord[] }) {
     const { messages } = payload;
     commit('SET_USER_MESSAGES', { messages });
+  },
+  updateMessage({ commit }: ActionContext<State, any>, payload: { messages: { id: number, hash: string, friend_id: number } }) {
+    const { messages } = payload;
+    commit('UPDATE_MESSAGE', { messages });
   }
 };
 
