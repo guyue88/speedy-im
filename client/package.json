@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@types/md5": "^2.2.0",
-    "@types/node": "^14.11.2",
+    "@types/node": "^14.14.0",
     "@types/uni-app": "^1.4.2",
     "@types/webpack-env": "^1.15.3"
   }
