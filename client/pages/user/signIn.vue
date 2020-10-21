@@ -77,9 +77,9 @@ export default Vue.extend({
             icon: 'none',
           });
         } else {
-          let { redirect = '/' } = this.$Route.query;
+          let { redirect = '/pages/chat/list', tab = '1', replace = '0'} = this.$Route.query;
           redirect = decodeURIComponent(redirect);
-          this.$Router.push({ path: redirect });
+          this.$Router[!!+tab ? 'pushTab' : (!!+replace ? 'replace' : 'push')]({ path: redirect });
         }
       }
     },
