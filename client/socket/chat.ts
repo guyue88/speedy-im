@@ -65,8 +65,9 @@ class Chat {
    * @param data { CHAT_MESSAGE } 接收到的好友消息
    */
   public onMessage(data: CHAT_MESSAGE) {
-    const { messages } = data;
+    const { messages, sender_id } = data;
     store.dispatch('message/setMessage', { messages });
+    store.dispatch('user/setRecentContact', { friend_id: sender_id });
   }
 
   /**
