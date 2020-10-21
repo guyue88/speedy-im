@@ -61,8 +61,7 @@
 
 <script lang="ts">
 import { mapState } from 'vuex';
-import Chat from '@/socket/chat';
-import { MessageType, SendStatus, UserType, ContentType, MessageBelong } from '@/interface/enum';
+import Chat from '../../socket/chat';
 
 export default {
   name: 'Chat',
@@ -74,17 +73,17 @@ export default {
   },
   computed: {
     ...mapState({
-      user_info: (state: any) => state.user.user_info,
-      friend_info(state: any) {
+      user_info: state => state.user.user_info,
+      friend_info(state) {
         return state.user.friends_map[this.friend_id];
       },
-			messages(state: any) {
+			messages(state) {
         const { list } = state.message;
         return list[this.friend_id] || null;
       },
 		}),
   },
-  onLoad(params: any) {
+  onLoad(params) {
     const { uid } = params;
     this.friend_id = uid;
   },
