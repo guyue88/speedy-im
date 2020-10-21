@@ -29,9 +29,9 @@
 					<view class="list">
 						<view class="list-item" v-for="(fid, index) in item.list" :key="index" @click="chat2user(fid)">
 							<view class="avatar">
-								<image :src="friendsMap[fid].avatar" class="image" />
+								<image :src="friends_map[fid].avatar" class="image" />
 							</view>
-							<view class="name">{{friendsMap[fid].nickname}}</view>
+							<view class="name">{{friends_map[fid].nickname}}</view>
 						</view>
 					</view>
 				</view>
@@ -54,7 +54,7 @@ export default Vue.extend({
 	computed: {
 		...mapState({
 			friends: (state: any) => state.user.friends,
-			friendsMap: (state: any) => state.user.friendsMap,
+			friends_map: (state: any) => state.user.friends_map,
     }),
 	},
 	methods: {

@@ -220,7 +220,7 @@ router.get('/unreadMessage', async (req, res) => {
     tmp.push(item.id as number);
     return {
       ...item,
-      is_owner: uid === item.user_id,
+      is_owner: uid === item.user_id ? 1 : 0,
     };
   });
   if (tmp.length) {

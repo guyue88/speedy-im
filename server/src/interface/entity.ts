@@ -14,7 +14,6 @@ export interface Message {
   status: number;
 }
 
-
 export interface User {
   id: number;
   nickname: string;
@@ -33,4 +32,9 @@ export interface FriendInfo extends User {
   uid: number;
   friend_id: number;
   remark: string;
+}
+
+// 扩展的接口
+export interface MessageRecord extends Message {
+  is_owner: 0 | 1;
 }

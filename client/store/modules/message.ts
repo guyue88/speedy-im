@@ -2,51 +2,44 @@ import { ActionContext } from 'vuex';
 import request from '../../helper/request';
 import { MessageRecord } from '../../interface/entity';
 
-interface State {
-  messages: {
-    friend_id: number;
-    list: MessageRecord[];
-  }[];
+export interface State {
+  list: Record<number, MessageRecord[]>;
 }
 
 const state: State = {
-  messages: [],
+  list: {},
 };
 
 const mutations = {
-  SET_USER_MESSAGES(state: State, { messages: list }: { messages: MessageRecord[] }) {
-    const messages = [...state.messages];
-    list.forEach(item => {
+  SET_USER_MESSAGES(state: State, { messages }: { messages: MessageRecord[] }) {
+    const list = {...state.list};
+    messages.forEach(item => {
       const { dist_id, user_id, is_owner } = item;
+      // 自己发的消息，friend_id是dist_id，否则则是user_id
       const friend_id = is_owner ? dist_id : user_id;
-      const msg = messages.find(c => c.friend_id === friend_id);
+      const msg = list[friend_id];
       if (!msg) {
-        messages.push({
-          friend_id,
-          list: [item],
-        });
+        list[friend_id] = [item];
       } else {
-        !msg.list.find(l => l.id === item.id) && msg.list.push(item);
+        !msg.find(l => l.hash === item.hash) && msg.push(item);
       }
     });
-    state.messages = messages;
+    state.list = list;
   },
-  UPDATE_MESSAGE(state: State, { messages: data }: { messages: { id: number, hash: string, friend_id: number } }) {
-    const messages = [...state.messages];
-    const { id, hash, friend_id } = data;
-    for (let i = 0, len = messages.length; i < len;i++) {
-      const item = messages[i];
-      if (+item.friend_id === +friend_id) {
-        item.list = item.list.map(m => {
-          if (m.hash === hash) {
-            m.id = id;
-          }
-          return m;
-        });
-        break;
-      }
+  UPDATE_MESSAGE(state: State, { messages }: { messages: { id: number, hash: string, friend_id: number } }) {
+    const list = {...state.list};
+    const { id, hash, friend_id } = messages;
+    const msg = list[friend_id];
+    if (!msg) {
+      return;
     }
-    state.messages = messages;
+    list[friend_id] = msg.map(m => {
+      if (m.hash === hash) {
+        m.id = id;
+      }
+      return m;
+    });
+    state.list = list;
   },
 };
 
