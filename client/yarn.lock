@@ -9,6 +9,18 @@
   dependencies:
     socket.io-client "^2.1.1"
 
+"@types/md5@^2.2.0":
+  version "2.2.0"
+  resolved "https://npm.garenanow.com/@types%2fmd5/-/md5-2.2.0.tgz#cd82e16b95973f94bb03dee40c5b6be4a7fb7fb4"
+  integrity sha512-JN8OVL/wiDlCWTPzplsgMPu0uE9Q6blwp68rYsfk2G8aokRUQ8XD9MEhZwihfAiQvoyE+m31m6i3GFXwYWomKQ==
+  dependencies:
+    "@types/node" "*"
+
+"@types/node@*":
+  version "14.14.0"
+  resolved "https://npm.garenanow.com/@types%2fnode/-/node-14.14.0.tgz#f1091b6ad5de18e8e91bdbd43ec63f13de372538"
+  integrity sha512-BfbIHP9IapdupGhq/hc+jT5dyiBVZ2DdeC5WwJWQWDb0GijQlzUFAeIQn/2GtvZcd2HVUU7An8felIICFTC2qg==
+
 "@types/node@^14.11.2":
   version "14.11.2"
   resolved "https://npm.garenanow.com/@types%2fnode/-/node-14.11.2.tgz#2de1ed6670439387da1c9f549a2ade2b0a799256"
@@ -20,6 +32,11 @@
   integrity sha512-PRMseHhBDaqHldOVkQrkTYkIG4RBJJKLVlSpLtc4GgqOlnL9nLpuqMz5e/UPDOnClsCeT4cfug6fqCGtRD3M9Q==
   dependencies:
     vue "^2.6.8"
+
+"@types/webpack-env@^1.15.3":
+  version "1.15.3"
+  resolved "https://npm.garenanow.com/@types%2fwebpack-env/-/webpack-env-1.15.3.tgz#fb602cd4c2f0b7c0fb857e922075fdf677d25d84"
+  integrity sha512-5oiXqR7kwDGZ6+gmzIO2lTC+QsriNuQXZDWNYRV3l2XRN/zmPgnC21DLSx2D05zvD8vnXW6qUg7JnXZ4I6qLVQ==
 
 after@0.8.2:
   version "0.8.2"
@@ -238,6 +255,11 @@ to-array@0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/to-array/-/to-array-0.1.4.tgz#17e6c11f73dd4f3d74cda7a4ff3238e9ad9bf890"
   integrity sha1-F+bBH3PdTz10zaek/zI46a2b+JA=
+
+tslib@^2.0.3:
+  version "2.0.3"
+  resolved "https://npm.garenanow.com/tslib/-/tslib-2.0.3.tgz#8e0741ac45fc0c226e58a17bfc3e64b9bc6ca61c"
+  integrity sha512-uZtkfKblCEQtZKBF6EBXVZeQNl82yqtDQdv+eck8u7tdPxjLu2/lp5/uPW+um2tpuxINHWy3GhiccY7QgEaVHQ==
 
 uni-hold-tabbar@^1.0.0:
   version "1.0.0"

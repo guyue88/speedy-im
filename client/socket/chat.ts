@@ -7,18 +7,17 @@ import { CHAT_MESSAGE, RESPONSE_MESSAGE, SOCKET_RESPONSE } from '../interface/re
 import { User, FriendInfo, Message, MessageRecord } from '../interface/entity';
 import store from "../store";
 
-declare let uni: any;
-
-const { ws } = config;
-
 interface Options {
   token: string;
 }
 
+declare let uni: any;
+const { ws } = config;
+
 class Chat {
   private static instance: Chat;
-  private token: string;
-  private socket: any;
+  private token: string = '';
+  private socket: any = null;
 
   public static getInstance() {
     if (!this.instance) {
