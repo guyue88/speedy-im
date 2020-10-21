@@ -4,6 +4,12 @@
 	},
 	"pages": [
 		{
+			"path": "pages/user/signIn",
+			"style": {
+				"navigationBarTitleText": "用户登录",
+				"navigationStyle": "custom"
+			}
+		}, {
 			"path": "pages/chat/list",
 			"style": {
 				"navigationBarTitleText": "消息",
@@ -35,12 +41,6 @@
 				}
 			}
 		}, {
-			"path": "pages/user/signIn",
-			"style": {
-				"navigationBarTitleText": "用户登录",
-				"navigationStyle": "custom"
-			}
-		} ,{
       "path" : "pages/user/signUp",
       "style" : {
         "navigationBarTitleText": "用户注册",

@@ -13,24 +13,32 @@ const router = new Router({
   routes: [...routes],
 });
 
+const whiteList = [
+  'userSignIn',
+  'userSignUp',
+];
+
 //全局路由前置守卫
 router.beforeEach(async (to: any, from: any, next: any) => {
-  if (!to.auth) {
+  if (!to.auth || whiteList.includes(to.name)) {
     return next();
   }
   const { user_info } = store.state.user;
-  console.log(333, user_info);
   if (user_info && user_info.id) {
     // 已登录则跳转
     return next();
   } else {
     // 未登录则尝试自动登录
+    const token = uni.getStorageSync('token');
+    if (!token) {
+      return next({ name: 'userSignIn', NAVTYPE: 'push' });
+    }
     const res = await store.dispatch('user/autoLogin');
     if (res && res.data && res.data.id) {
       // 自动登录后，正常跳转
       return next();
     } else {
-      return next({ name: 'userSignIn' });
+      return next({ name: 'userSignIn', NAVTYPE: 'push' });
     }
   }
 });
