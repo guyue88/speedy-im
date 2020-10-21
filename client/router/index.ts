@@ -13,14 +13,9 @@ const router = new Router({
   routes: [...routes],
 });
 
-const whiteList = [
-  'userSignIn',
-  'userSignUp',
-];
-
 //全局路由前置守卫
 router.beforeEach(async (to: any, from: any, next: any) => {
-  if (!to.auth || whiteList.includes(to.name)) {
+  if (!to.auth) {
     return next();
   }
   const { user_info } = store.state.user;
