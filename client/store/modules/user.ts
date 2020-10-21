@@ -5,24 +5,26 @@ import Chat from '../../socket/chat';
 
 declare let uni: any;
 
-interface State {
-  userInfo: User;
-  friendsMap: Record<number, FriendInfo>;
+export interface State {
+  user_info: User;
+  friends_map: Record<number, FriendInfo>;
   friends: {
     key: string; // 用户名首字母
     list: number[]
   }[];
+  recent_contacts: number[],
 }
 
 const state: State = {
-  userInfo: {} as User,
-  friendsMap: {},
+  user_info: {} as User,
+  friends_map: {},
   friends: [],
+  recent_contacts: [],
 };
 
 const mutations = {
-  SET_USER_INFO(state: State, payload: { userInfo: User }) {
-    state.userInfo = payload.userInfo;
+  SET_USER_INFO(state: State, payload: { user_info: User }) {
+    state.user_info = payload.user_info;
   },
   SET_USER_FRIENDS(state: State, payload: { friends: { key: string; list: FriendInfo[] }[] }) {
     const { friends } = payload;
@@ -39,8 +41,11 @@ const mutations = {
       }
     });
     state.friends = tmp;
-    state.friendsMap = map;
+    state.friends_map = map;
   },
+  SET_RECENT_CONTACT(state: State, payload: { friend_id: number }) {
+    state.recent_contacts = Array.from(new Set([...state.recent_contacts, payload.friend_id]));
+  }
 };
 
 const actions = {
@@ -53,7 +58,7 @@ const actions = {
       commit('SET_USER_FRIENDS', { friends: res.data });
     }
   },
-  async login({ commit, dispatch }: ActionContext<State, any>, { mobile, password}: { mobile: number, password: string }) {
+  async login({ commit, dispatch }: ActionContext<State, any>, { mobile, password }: { mobile: number, password: string }) {
     const [err, res] = await request({
       url: '/user/signIn',
       method: 'PUT',
@@ -64,7 +69,7 @@ const actions = {
     });
     if (res && res.errno === 200) {
       await dispatch('getFriendsList');
-      commit('SET_USER_INFO', { userInfo: res.data });
+      commit('SET_USER_INFO', { user_info: res.data });
       uni.setStorageSync('token', res.data.token);
       // 登陆成功后，建立ws连接
       Chat.setup();
@@ -86,7 +91,7 @@ const actions = {
     });
     if (res && res.errno === 200) {
       await dispatch('getFriendsList');
-      commit('SET_USER_INFO', { userInfo: res.data });
+      commit('SET_USER_INFO', { user_info: res.data });
       // 登陆成功后，建立ws连接
       Chat.setup();
       return {
@@ -100,6 +105,9 @@ const actions = {
       errmsg: res && res.errmsg || '网络错误',
       data: null,
     };
+  },
+  setRecentContact({ commit }: ActionContext<State, any>, { friend_id }: { friend_id: number }) {
+    commit('SET_RECENT_CONTACT', { friend_id });
   },
 };
 

@@ -6,7 +6,7 @@ import Group from '../service/group';
 import Relation from '../service/relation';
 import Message from '../service/message';
 import config from '../config';
-import { Message as MessageData } from '../interface/entity';
+import { MessageRecord, Message as MessageData } from '../interface/entity';
 import { CHAT_MESSAGE, RESPONSE_MESSAGE, SOCKET_RESPONSE } from '../interface/response';
 import {
   ENUM_MESSAGE_DIST_TYPE, ENUM_MESSAGE_CONTENT_TYPE, ENUM_SOCKET_MESSAGE_TYPE, ENUM_MESSAGE_RESPONSE_STATUS,
@@ -47,7 +47,7 @@ export default class Chat {
   }
 
   private onMessage(socket: socketIO.Socket, uid: number) {
-    socket.on('message', async (payload: { message: MessageData }) => {
+    socket.on('message', async (payload: { message: MessageRecord }) => {
       const { id } = socket;
       const { message } = payload;
       log('收到消息：', message);
@@ -80,7 +80,7 @@ export default class Chat {
     });
   }
 
-  private async handlePrivateMessage(socket: socketIO.Socket, uid: number, payload: { message: MessageData }) {
+  private async handlePrivateMessage(socket: socketIO.Socket, uid: number, payload: { message: MessageRecord }) {
     const { id } = socket;
     const { message } = payload;
     const {
@@ -121,7 +121,7 @@ export default class Chat {
       socket.emit(id, response);
       return;
     }
-    const final_message: MessageData = {
+    const sql_message: MessageData = {
       hash,
       user_id: uid,
       dist_id,
@@ -132,8 +132,8 @@ export default class Chat {
       status: 1,
       is_sent: friend_info.client_id ? 1 : 0,
     };
-    const [error, result] = await Message.createMessage(final_message);
-    if (error) {
+    const [error, result] = await Message.createMessage(sql_message);
+    if (error || !result.insertId) {
       response_status_message.status = ENUM_MESSAGE_RESPONSE_STATUS.ERROR;
       // 数据库插入失败
       socket.emit(id, response);
@@ -144,25 +144,28 @@ export default class Chat {
     response_status_message.data = { id: result.insertId, hash, friend_id: dist_id };
     socket.emit(id, response);
 
-    final_message.id = result.insertId;
-
     if (!friend_info.client_id) return;
     // 对方在线，发送消息给对方
+    const final_message: MessageRecord = {
+      ...sql_message,
+      is_owner: 0,
+      id: result.insertId,
+    };
     const user_message: CHAT_MESSAGE = {
       type: ENUM_MESSAGE_DIST_TYPE.PRIVATE,
       sender_id: uid,
       receive_id: dist_id,
-      message: final_message,
+      messages: [final_message],
     };
     const user_response: SOCKET_RESPONSE = {
       message_type: ENUM_SOCKET_MESSAGE_TYPE.PRIVATE_CHAT,
       message: user_message,
     };
-    socket.emit(friend_info.client_id, user_response);
-    // TODO: 更新消息发送状态
+    this.nsp.emit(friend_info.client_id, user_response);
+    await Message.updateMessage(result.insertId, { is_sent: 1 });
   }
 
-  private async handleGroupMessage(socket: socketIO.Socket, uid: number, payload: { message: MessageData }) {
+  private async handleGroupMessage(socket: socketIO.Socket, uid: number, payload: { message: MessageRecord }) {
     const { id } = socket;
     const { message } = payload;
     const {
@@ -189,7 +192,7 @@ export default class Chat {
       socket.emit(id, response);
       return;
     }
-    const final_message: MessageData = {
+    const final_message: MessageRecord = {
       hash,
       user_id: uid,
       dist_id,
@@ -199,6 +202,7 @@ export default class Chat {
       create_time,
       status: 1,
       is_sent: 1,
+      is_owner: 0,
     };
     const result: any = await Message.createMessage(final_message);
     final_message.id = result.insert_id;

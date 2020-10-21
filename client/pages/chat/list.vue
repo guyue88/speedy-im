@@ -33,6 +33,8 @@
 import Vue from 'vue';
 import { mapState } from 'vuex';
 import Util from '../../helper/util';
+import { State as MessageState } from '../../store/modules/message';
+import { State as UserState } from '../../store/modules/user';
 
 declare let uni: any;
 
@@ -43,28 +45,33 @@ export default Vue.extend({
 	},
   computed: {
     ...mapState({
-			friendsMap: (state: any) => state.user.friendsMap,
-			messages:  (state: any) => state.message.messages,
+			friends_map: (state: { user: UserState }) => state.user.friends_map,
+			recent_contacts: (state: { user: UserState }) => state.user.recent_contacts,
+			messages: (state: { message: MessageState }) => state.message.list,
 		}),
 		list() {
-			const res = [];
-			this.messages.forEach(item => {
-				const { friend_id, list } = item;
-				const last_message = list[list.length - 1];
-				last_message.time = Util.formatTime(last_message.create_time);
-				let unread_number = 0;
-				list.forEach(m => {
-					if (!m.is_read) {
-						unread_number += 1;
-					}
-				})
-				res.push({
-					friend_info: this.friendsMap[friend_id],
-					last_message,
-					unread_number,
-				});
+			return this.recent_contacts.map(friend_id => {
+				const res = {
+					friend_info: this.friends_map[friend_id],
+					last_message: {},
+					unread_number: 0,
+				};
+				const message = this.messages[friend_id];
+				if (message && message.length) {
+					let last_message: any = {};
+					let unread_number = 0;
+					message.forEach(msg => {
+						if (!msg.is_read) {
+							unread_number += 1;
+						}
+						last_message = msg;
+					});
+					last_message.time = Util.formatTime(last_message.create_time);
+					res.last_message = last_message;
+					res.unread_number = unread_number;
+				}
+				return res;
 			});
-			return res;
 		}
 	},
 	async onShow() {

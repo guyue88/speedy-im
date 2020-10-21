@@ -33,7 +33,7 @@ export interface User {
 
 // 扩展的接口
 export interface MessageRecord extends Message {
-  is_owner: boolean;
+  is_owner: 0 | 1;
 }
 
 export interface FriendInfo extends User {

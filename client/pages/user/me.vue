@@ -2,11 +2,11 @@
   <view class="container">
     <div class="info">
       <view class="avatar">
-        <image :src="`${userInfo.avatar}?imageView2/1/w/150/h/150/format/jpg/interlace/1/q/75`" class="image" />
+        <image :src="`${user_info.avatar}?imageView2/1/w/150/h/150/format/jpg/interlace/1/q/75`" class="image" />
       </view>
       <view class="content">
-        <view class="name">{{userInfo.nickname}}</view>
-        <view class="id">快聊ID: {{userInfo.id}}</view>
+        <view class="name">{{user_info.nickname}}</view>
+        <view class="id">快聊ID: {{user_info.id}}</view>
       </view>
       <view class="more">
         <u-icon name="arrow-right" size="36" />
@@ -55,7 +55,7 @@ export default Vue.extend({
   },
   computed: {
     ...mapState({
-      userInfo: (state: any) => state.user.userInfo,
+      user_info: (state: any) => state.user.user_info,
     }),
   },
 });

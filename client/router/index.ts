@@ -18,8 +18,8 @@ router.beforeEach(async (to: any, from: any, next: any) => {
   if (!to.auth) {
     return next();
   }
-  const { userInfo } = store.state.user;
-  if (userInfo && userInfo.id) {
+  const { user_info } = store.state.user;
+  if (user_info && user_info.id) {
     // 已登录则跳转
     return next();
   } else {

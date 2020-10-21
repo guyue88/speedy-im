@@ -19,11 +19,11 @@
           v-if="item.message_type !== 1"
         >
           <view class="chat-message-avatar" :class="[item.is_owner ? 'chat-mine-message-avatar' : '']">
-            <image :src="item.is_owner ? userInfo.avatar : friendInfo.avatar" class="chat-message-avatar-image" />
+            <image :src="item.is_owner ? user_info.avatar : friend_info.avatar" class="chat-message-avatar-image" />
           </view>
           <view class="chat-message-text-wrap" :class="[item.is_owner ? 'chat-mine-message-text-wrap' : '']">
             <view class="chat-message-name">
-              <text class="chat-message-name-text">{{ item.is_owner ? userInfo.nickname : friendInfo.nickname }}</text>
+              <text class="chat-message-name-text">{{ item.is_owner ? user_info.nickname : friend_info.nickname }}</text>
             </view>
             <view class="chat-message-content" :class="[item.is_owner ? 'chat-mine-message-content' : '']">
               <text class="chat-message-content-text" :class="[item.is_owner ? 'chat-mine-message-content-text' : '']">{{item.content}}</text>
@@ -69,35 +69,33 @@ export default {
   data() {
     return {
       message: '',
-      friendId: '',
+      friend_id: '',
     }
   },
   computed: {
     ...mapState({
-      userInfo: (state: any) => state.user.userInfo,
-      friendInfo(state: any) {
-        return state.user.friendsMap[this.friendId];
+      user_info: (state: any) => state.user.user_info,
+      friend_info(state: any) {
+        return state.user.friends_map[this.friend_id];
       },
 			messages(state: any) {
-        const { messages } = state.message;
-        const friendMessages = messages.find(i => i.friend_id === +this.friendId);
-        if (!friendMessages) return null;
-        return friendMessages.list;
+        const { list } = state.message;
+        return list[this.friend_id] || null;
       },
 		}),
   },
   onLoad(params: any) {
     const { uid } = params;
-    this.friendId = uid;
+    this.friend_id = uid;
   },
   methods: {
     send() {
       const message = this.message.trim();
       if (!message) return;
       Chat.sendMessage(message, {
-        userInfo: this.userInfo,
-        friendInfo: this.friendInfo,
-        isGroup: false,
+        user_info: this.user_info,
+        friend_info: this.friend_info,
+        is_group: false,
       });
       this.message = '';
     }
