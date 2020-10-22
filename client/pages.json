@@ -4,12 +4,6 @@
 	},
 	"pages": [
 		{
-			"path": "pages/user/signIn",
-			"style": {
-				"navigationBarTitleText": "用户登录",
-				"navigationStyle": "custom"
-			}
-		}, {
 			"path": "pages/chat/list",
 			"style": {
 				"navigationBarTitleText": "消息",
@@ -39,6 +33,12 @@
 				"app-plus": {
 					"softinputMode": "adjustResize"
 				}
+			}
+		}, {
+			"path": "pages/user/signIn",
+			"style": {
+				"navigationBarTitleText": "用户登录",
+				"navigationStyle": "custom"
 			}
 		}, {
       "path" : "pages/user/signUp",

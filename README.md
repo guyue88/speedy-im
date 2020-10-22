@@ -13,7 +13,7 @@
 
 ## DEMO
 
-[IM.apk](https://im.wangcai.me/__UNI__0CE1D62_1021191732.apk) ，已有基础UI以及登陆、点到点聊天等功能。
+[IM.apk](https://im.wangcai.me/apk/__UNI__0CE1D62_1021191732.apk) ，已有基础UI以及登陆、点到点聊天等功能。
 
 ## 开发
 
