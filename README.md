@@ -32,7 +32,7 @@ $ docker-compose up -d mysql
 # 导入数据库，见下方导入数据库
 
 # 启动服务端
-$ cd ../server
+$ cd server
 $ yarn && yarn dev
 
 # 以上为已开发模式启动服务端，不想改动服务端代码，只是单纯想开启服务器可以如下操作
@@ -40,14 +40,14 @@ $ cd docker
 $ docker-compose up
 
 # 安装客户端依赖，安装完成后使用HBuilder X运行到浏览器即可，请确保此时服务端已正确运行，否则会导致接口无法调用
-$ cd speedy-im/src/client
+$ cd client
 $ yarn
 ```
 
 ## 导入数据库
 
 * 本项目使用docker部署开发，待docker数据库启动后连接数据库，默认数据库配置见下方[MySQL默认配置](#MySQL默认配置)。
-* 导入初始数据库，位置为`src/docker/mysql/speedy-im.sql`。
+* 导入初始数据库，位置为`docker/mysql/speedy-im.sql`。
 
 ### MySQL默认配置
 
