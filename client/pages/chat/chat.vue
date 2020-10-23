@@ -1,41 +1,45 @@
 <template>
   <view class="container">
-    <scroll-view
-      class="chat-main"
-      :scroll-y="true"
-      :scroll-with-animation="true"
-      :enable-back-to-top="true"
-      :show-scrollbar="false"
-    >
-      <view
-        v-for="(item, index) in messages"
-        :key="item.id"
-        class="chat-wrap"
-        :class="[index === 0 ? 'chat-first-wrap' : '']"
-        :id="`message_${item.id}`"
+    <view class="chat-body">
+      <scroll-view
+        class="chat-main"
+        :scroll-y="true"
+        :scroll-with-animation="true"
+        :enable-back-to-top="false"
+        :show-scrollbar="false"
+        :scroll-anchoring="true"
+        :scroll-into-view="scroll_view_id ? `message_${scroll_view_id}` : ''"
       >
         <view
-          :class="[item.is_owner ? 'chat-mine' : 'chat-friend']"
-          v-if="item.message_type !== 1"
+          v-for="(item, index) in messages"
+          :key="item.id"
+          class="chat-item"
+          :class="[index === 0 ? 'chat-first-wrap' : '']"
+          :id="`message_${item.hash}`"
         >
-          <view class="chat-message-avatar" :class="[item.is_owner ? 'chat-mine-message-avatar' : '']">
-            <image :src="item.is_owner ? user_info.avatar : friend_info.avatar" class="chat-message-avatar-image" />
-          </view>
-          <view class="chat-message-text-wrap" :class="[item.is_owner ? 'chat-mine-message-text-wrap' : '']">
-            <view class="chat-message-name">
-              <text class="chat-message-name-text">{{ item.is_owner ? user_info.nickname : friend_info.nickname }}</text>
+          <view
+            :class="[item.is_owner ? 'chat-mine' : 'chat-friend']"
+            v-if="item.message_type !== 1"
+          >
+            <view class="chat-message-avatar" :class="[item.is_owner ? 'chat-mine-message-avatar' : '']">
+              <image :src="item.is_owner ? user_info.avatar : friend_info.avatar" class="chat-message-avatar-image" />
             </view>
-            <view class="chat-message-content" :class="[item.is_owner ? 'chat-mine-message-content' : '']">
-              <text class="chat-message-content-text" :class="[item.is_owner ? 'chat-mine-message-content-text' : '']">{{item.content}}</text>
-              <view :class="[item.is_owner ? 'chat-mine-message-content-text-bubble' : 'chat-message-content-text-bubble']"></view>
+            <view class="chat-message-text-wrap" :class="[item.is_owner ? 'chat-mine-message-text-wrap' : '']">
+              <view class="chat-message-name">
+                <text class="chat-message-name-text">{{ item.is_owner ? user_info.nickname : friend_info.nickname }}</text>
+              </view>
+              <view class="chat-message-content" :class="[item.is_owner ? 'chat-mine-message-content' : '']">
+                <text class="chat-message-content-text" :class="[item.is_owner ? 'chat-mine-message-content-text' : '']">{{item.content}}</text>
+                <view :class="[item.is_owner ? 'chat-mine-message-content-text-bubble' : 'chat-message-content-text-bubble']"></view>
+              </view>
             </view>
           </view>
+          <!-- <view class="chat-system" v-if="item.message_type === 1">
+            <text class="chat-system-text">{{item.content}}</text>
+          </view> -->
         </view>
-        <!-- <view class="chat-system" v-if="item.message_type === 1">
-          <text class="chat-system-text">{{item.content}}</text>
-        </view> -->
-      </view>
-    </scroll-view>
+      </scroll-view>
+    </view>
 
     <view class="chat-footer">
       <view class="chat-send-wrap">
@@ -51,8 +55,8 @@
           @confirm="send"
         />
         <view class="chat-tool-icons">
-          <image src="@/static/nvue/emoji.png" class="chat-tool-icon" />
-          <image src="@/static/nvue/plus.png" class="chat-tool-icon" />
+          <image src="@/static/images/icon/emoji.png" class="chat-tool-icon" />
+          <image src="@/static/images/icon/plus.png" class="chat-tool-icon" />
         </view>
       </view>
     </view>
@@ -69,6 +73,7 @@ export default {
     return {
       message: '',
       friend_id: '',
+      scroll_view_id: '',
     }
   },
   computed: {
@@ -80,8 +85,22 @@ export default {
 			messages(state: any) {
         const { list } = state.message;
         return list[this.friend_id] || null;
-      },
+      }
 		}),
+  },
+  watch: {
+    messages(newVal, oldVal) {
+      const hash1 = newVal[newVal.length - 1].hash;
+      let hash2 = '';
+      if (oldVal && oldVal.length) {
+        hash2 = oldVal[oldVal.length - 1].hash2;
+      }
+      if (hash1 !== hash2) {
+        setTimeout(() => {
+          this.scroll_view_id = hash1;
+        });
+      }
+    }
   },
   onLoad(params) {
     const { uid } = params;
@@ -117,12 +136,16 @@ view, scroll-view {
   border-top-color: #eaeaea;
   background-color: #f2f2f2;
 }
-.chat-main {
+.chat-body {
   flex: 1;
   height: 100%;
-  flex-direction: column;
+  overflow: hidden;
 }
-.chat-wrap {
+.chat-main {
+  flex-direction: column;
+  overflow-anchor: auto;
+}
+.chat-item {
   padding: 0 30rpx;
   margin-bottom: 40rpx;
 }
