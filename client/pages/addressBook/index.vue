@@ -12,13 +12,13 @@
 			<view class="groups">
 				<view class="apply">
 					<view class="image">
-						<image src="@/static/page/apply.png" class="icon" />
+						<image src="@/static/images/icon/apply.png" class="icon" />
 					</view>
 					<view class="text">好友申请</view>
 				</view>
 				<view class="group">
 					<view class="image">
-						<image src="@/static/page/group.png" class="icon" />
+						<image src="@/static/images/icon/group.png" class="icon" />
 					</view>
 					<view class="text">我的群组</view>
 				</view>

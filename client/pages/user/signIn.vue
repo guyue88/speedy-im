@@ -2,7 +2,7 @@
   <view class="container">
     <view class="logo">
       <div class="image">
-        <image src="~@/static/page/logo.png" class="icon"/>
+        <image src="~@/static/images/logo.png" class="icon"/>
       </div>
     </view>
     <view class="welcome">

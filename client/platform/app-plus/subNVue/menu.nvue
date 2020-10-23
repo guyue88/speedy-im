@@ -1,17 +1,17 @@
 <template>
   <view class="layer" @click="hideLayer">
-    <image class="prefix" src="@/static/nvue/triangle.png" />
+    <image class="prefix" src="@/static/images/icon/triangle.png" />
     <view class="menu" @click.stop="">
       <view class="menu-item first">
-        <image src="@/static/nvue/scan.png" class="image">
+        <image src="@/static/images/icon/scan.png" class="image">
         <text class="text">扫一扫</text>
       </view>
       <view class="menu-item">
-        <image src="@/static/tab/chat.png" class="image">
+        <image src="@/static/images/tab/chat.png" class="image">
         <text class="text">发起群聊</text>
       </view>
       <view class="menu-item">
-        <image src="@/static/nvue/add.png" class="image">
+        <image src="@/static/images/icon/add.png" class="image">
         <text class="text">添加好友</text>
       </view>
     </view>

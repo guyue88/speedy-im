@@ -51,8 +51,8 @@
           @confirm="send"
         />
         <view class="chat-tool-icons">
-          <image src="@/static/nvue/emoji.png" class="chat-tool-icon" />
-          <image src="@/static/nvue/plus.png" class="chat-tool-icon" />
+          <image src="@/static/images/icon/emoji.png" class="chat-tool-icon" />
+          <image src="@/static/images/icon/plus.png" class="chat-tool-icon" />
         </view>
       </view>
     </view>

@@ -91,18 +91,18 @@
     "list": [
       {
         "pagePath": "pages/chat/list",
-        "iconPath": "static/tab/chat.png",
-        "selectedIconPath": "static/tab/chat-active.png",
+        "iconPath": "static/images/tab/chat.png",
+        "selectedIconPath": "static/images/tab/chat-active.png",
         "text": "消息"
       }, {
         "pagePath": "pages/addressBook/index",
-        "iconPath": "static/tab/address-book.png",
-        "selectedIconPath": "static/tab/address-book-active.png",
+        "iconPath": "static/images/tab/address-book.png",
+        "selectedIconPath": "static/images/tab/address-book-active.png",
         "text": "通讯录"
       }, {
         "pagePath": "pages/user/me",
-        "iconPath": "static/tab/user.png",
-        "selectedIconPath": "static/tab/user-active.png",
+        "iconPath": "static/images/tab/user.png",
+        "selectedIconPath": "static/images/tab/user-active.png",
         "text": "用户中心"
       }
     ]
