@@ -42,7 +42,6 @@ app.use(
     getToken: Util.getToken,
     isRevoked(req, payload, done) {
       const token = Util.getToken(req);
-      // const { exp } = payload;
       const isRevoked = BlackList.isTokenInList(token);
       if (isRevoked) {
         return done('invalid token', true);

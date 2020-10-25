@@ -274,7 +274,7 @@ view, scroll-view {
   border-width: 0;
   background-color: #fff;
   border-radius: 10rpx;
-  font-size: 28rpx;
+  font-size: 32rpx;
   padding: 0 16rpx;
 }
 .chat-tool-icons {
