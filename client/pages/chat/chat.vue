@@ -1,6 +1,6 @@
 <template>
   <view class="container">
-    <view class="chat-body">
+    <view class="chat-body" :style="{paddingTop: `${bodyPaddingTop}px`}">
       <scroll-view
         class="chat-main"
         :scroll-y="true"
@@ -48,10 +48,10 @@
           class="chat-send-input"
           v-model="message"
           confirm-type="send"
-          :confirm-hold="true"
           :cursor-spacing="56"
+          :confirm-hold="true"
           :hold-keyboard="true"
-          :adjust-position="false"
+          :adjust-position="true"
           @confirm="send"
         />
         <view class="chat-tool-icons">
@@ -66,6 +66,10 @@
 <script lang="ts">
 import { mapState } from 'vuex';
 import Chat from '../../socket/chat';
+import { State as MessageState } from '../../store/modules/message';
+import { State as UserState } from '../../store/modules/user';
+
+declare var uni: any;
 
 export default {
   name: 'Chat',
@@ -74,37 +78,44 @@ export default {
       message: '',
       friend_id: '',
       scroll_view_id: '',
+      bodyPaddingTop: 0, // TODO: 修正顶部对话不可见BUG，暂时不用该方案
     }
   },
   computed: {
     ...mapState({
-      user_info: (state: any) => state.user.user_info,
-      friend_info(state: any) {
+      user_info: (state: { user: UserState }) => state.user.user_info,
+      friend_info(state: { user: UserState }) {
         return state.user.friends_map[this.friend_id];
       },
-			messages(state: any) {
+			messages(state: { message: MessageState }) {
         const { list } = state.message;
         return list[this.friend_id] || null;
-      }
+      },
+      last_hash_id(state: { message: MessageState }) {
+        const { lastHashIdMap } = state.message;
+        return lastHashIdMap[this.friend_id] || '';
+      },
 		}),
   },
   watch: {
-    messages(newVal, oldVal) {
-      const hash1 = newVal[newVal.length - 1].hash;
-      let hash2 = '';
-      if (oldVal && oldVal.length) {
-        hash2 = oldVal[oldVal.length - 1].hash2;
-      }
-      if (hash1 !== hash2) {
-        setTimeout(() => {
-          this.scroll_view_id = hash1;
-        });
-      }
+    last_hash_id: function (newVal, oldVal) {
+      if (newVal === this.scroll_view_id) return;
+      setTimeout(() => {
+        this.scroll_view_id = newVal;
+      }, 30);
+    },
+    friend_info(newVal) {
+      uni.setNavigationBarTitle({
+        title: newVal.nickname,
+      });
     }
   },
-  onLoad(params) {
+  async onLoad(params) {
     const { uid } = params;
     this.friend_id = uid;
+    // const [error, info] = await uni.getSystemInfo();
+    // const { statusBarHeight } = info || {};
+    // this.statusBarHeight = statusBarHeight;
   },
   methods: {
     send() {
@@ -116,8 +127,15 @@ export default {
         is_group: false,
       });
       this.message = '';
+    },
+    onFocus(event) {
+      const { height } = event.detail;
+      this.bodyPaddingTop = height;
+    },
+    onBlur() {
+      this.bodyPaddingTop = 0;
     }
-  }
+  },
 };
 </script>
 
@@ -274,7 +292,7 @@ view, scroll-view {
   border-width: 0;
   background-color: #fff;
   border-radius: 10rpx;
-  font-size: 32rpx;
+  font-size: 30rpx;
   padding: 0 16rpx;
 }
 .chat-tool-icons {
