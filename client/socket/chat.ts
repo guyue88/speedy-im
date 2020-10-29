@@ -66,7 +66,7 @@ class Chat {
   public onMessage(data: CHAT_MESSAGE) {
     const { messages, sender_id } = data;
     store.dispatch('message/setMessage', { messages });
-    store.dispatch('user/setRecentContact', { friend_id: sender_id });
+    store.dispatch('user/setRecentContacts', { friend_id: sender_id });
   }
 
   /**
@@ -84,10 +84,19 @@ class Chat {
     }
   }
 
+  /**
+   * 发送消息
+   * @param content {string} 发送内容
+   * @param options.user_info {User} 发送者信息
+   * @param options.friend_info {User} 接收者信息
+   * @param options.is_group {boolean} 是否是群消息
+   */
   public sendMessage(content: string, options: { user_info: User, friend_info: FriendInfo, is_group: boolean }) {
     if (!this.socket) return;
-    const { user_info, friend_info, is_group } = options;
+    content = content.trim();
+    if (!content) return;
 
+    const { user_info, friend_info, is_group } = options;
     const message: Message = {
       hash: md5(`${user_info.id}_${friend_info.friend_id}_${+new Date()}`),
       user_id: user_info.id,
@@ -103,7 +112,7 @@ class Chat {
     };
     this.socket.emit('message', { message });
     store.dispatch('message/setMessage', { messages: [record] });
-    store.dispatch('user/setRecentContact', { friend_id: friend_info.friend_id });
+    store.dispatch('user/setRecentContacts', { friend_id: friend_info.friend_id });
   }
 }
 

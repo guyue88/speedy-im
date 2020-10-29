@@ -15,7 +15,6 @@ export interface Message {
   status?: number;
 }
 
-
 export interface User {
   id: number;
   nickname: string;
