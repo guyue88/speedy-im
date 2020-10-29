@@ -106,7 +106,7 @@ const actions = {
       data: null,
     };
   },
-  setRecentContact({ commit }: ActionContext<State, any>, { friend_id }: { friend_id: number }) {
+  setRecentContacts({ commit }: ActionContext<State, any>, { friend_id }: { friend_id: number }) {
     commit('SET_RECENT_CONTACT', { friend_id });
   },
 };
