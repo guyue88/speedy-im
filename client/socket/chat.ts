@@ -6,6 +6,7 @@ import { ENUM_MESSAGE_CONTENT_TYPE, ENUM_MESSAGE_DIST_TYPE, ENUM_MESSAGE_RESPONS
 import { CHAT_MESSAGE, RESPONSE_MESSAGE, SOCKET_RESPONSE } from '../interface/response';
 import { User, FriendInfo, Message, MessageRecord } from '../interface/entity';
 import store from "../store";
+import Storage from '../helper/storage';
 
 interface Options {
   token: string;
@@ -63,22 +64,25 @@ class Chat {
    * 接收到好友发来消息
    * @param data { CHAT_MESSAGE } 接收到的好友消息
    */
-  public onMessage(data: CHAT_MESSAGE) {
+  public async onMessage(data: CHAT_MESSAGE) {
     const { messages, sender_id } = data;
-    store.dispatch('message/setMessage', { messages });
-    store.dispatch('user/setRecentContacts', { friend_id: sender_id });
+    await Storage.message.save(messages);
+    await Storage.contacts.save(sender_id);
+    await store.dispatch('message/setMessage', { messages });
+    await store.dispatch('user/setRecentContacts', { friend_id: sender_id });
   }
 
   /**
    * 消息确认，确认消息已被接收，并更新消息ID
    * @param message { RESPONSE_MESSAGE } 收到的消息
    */
-  public onConfirmMessage(message: RESPONSE_MESSAGE) {
+  public async onConfirmMessage(message: RESPONSE_MESSAGE) {
     const { status, data } = message;
     switch(status) {
       // 消息发送成功，更新消息ID
       case ENUM_MESSAGE_RESPONSE_STATUS.SUCCESS:
-        store.dispatch('message/updateMessage', { messages: data });
+        await Storage.message.save(data);
+        await store.dispatch('message/updateMessage', { messages: data });
         break;
       // TODO: 消息发送失败等处理
     }
@@ -91,7 +95,7 @@ class Chat {
    * @param options.friend_info {User} 接收者信息
    * @param options.is_group {boolean} 是否是群消息
    */
-  public sendMessage(content: string, options: { user_info: User, friend_info: FriendInfo, is_group: boolean }) {
+  public async sendMessage(content: string, options: { user_info: User, friend_info: FriendInfo, is_group: boolean }) {
     if (!this.socket) return;
     content = content.trim();
     if (!content) return;
@@ -111,8 +115,10 @@ class Chat {
       is_owner: 1,
     };
     this.socket.emit('message', { message });
-    store.dispatch('message/setMessage', { messages: [record] });
-    store.dispatch('user/setRecentContacts', { friend_id: friend_info.friend_id });
+    await Storage.message.save([record]);
+    await Storage.contacts.save(friend_info.friend_id);
+    await store.dispatch('message/setMessage', { messages: [record] });
+    await store.dispatch('user/setRecentContacts', { friend_id: friend_info.friend_id });
   }
 }
 

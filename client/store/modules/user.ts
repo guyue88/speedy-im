@@ -44,8 +44,11 @@ const mutations = {
     state.friends_map = map;
   },
   SET_RECENT_CONTACT(state: State, payload: { friend_id: number }) {
-    state.recent_contacts = Array.from(new Set([...state.recent_contacts, payload.friend_id]));
-  }
+    state.recent_contacts = Array.from(new Set([payload.friend_id, ...state.recent_contacts]));
+  },
+  SET_FULL_RECENT_CONTACT(state: State, payload: { list: number[] }) {
+    state.recent_contacts = payload.list;
+  },
 };
 
 const actions = {
@@ -108,6 +111,9 @@ const actions = {
   },
   setRecentContacts({ commit }: ActionContext<State, any>, { friend_id }: { friend_id: number }) {
     commit('SET_RECENT_CONTACT', { friend_id });
+  },
+  setFullRecentContacts({ commit }: ActionContext<State, any>, { list }: { list: number[] }) {
+    commit('SET_FULL_RECENT_CONTACT', { list });
   },
 };
 

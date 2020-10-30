@@ -31,6 +31,23 @@ const mutations = {
     state.list = list;
     state.lastHashIdMap = lastHashIdMap;
   },
+  RECOVER_MESSAGE(state: State, { messages }: { messages: Record<number, MessageRecord[]>}) {
+    // 接收消息或者发消息，先本地存储，所以本地消息永远先与当前消息，直接取用即可
+    const list = {...state.list};
+    const lastHashIdMap = {...state.lastHashIdMap};
+    for (let friend_id in messages) {
+      const localItem = messages[friend_id] || [];
+      const item = list[friend_id] || [];
+      const { length: localLength } = localItem;
+      const { length } = item;
+      lastHashIdMap[friend_id] = localItem[localLength - 1].hash;
+      if (localLength > length) {
+        list[friend_id] = localItem;
+      }
+    }
+    state.list = list;
+    state.lastHashIdMap = lastHashIdMap;
+  },
   UPDATE_MESSAGE_ID(state: State, { messages }: { messages: { id: number, hash: string, friend_id: number } }) {
     const list = {...state.list};
     const { id, hash, friend_id } = messages;
@@ -58,9 +75,13 @@ const actions = {
       commit('SET_USER_MESSAGES', { messages: res.data });
     }
   },
-  async setMessage({ commit }: ActionContext<State, any>, payload: { messages: MessageRecord[] }) {
+  setMessage({ commit }: ActionContext<State, any>, payload: { messages: MessageRecord[] }) {
     const { messages } = payload;
     commit('SET_USER_MESSAGES', { messages });
+  },
+  recoverMessages({ commit }: ActionContext<State, any>, payload: { messages: Record<number, MessageRecord[]> }) {
+    const { messages } = payload;
+    commit('RECOVER_MESSAGE', { messages });
   },
   updateMessage({ commit }: ActionContext<State, any>, payload: { messages: { id: number, hash: string, friend_id: number } }) {
     const { messages } = payload;

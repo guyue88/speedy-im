@@ -1,4 +1,5 @@
 import { MessageRecord } from "../interface/entity";
+import store from "../store";
 
 declare var uni: any;
 
@@ -8,13 +9,14 @@ class Message {
   private key = 'local_message_history';
 
   // 从本地存储中恢复数据
-  public recover() {
-
+  public async recover() {
+    const messages = await this.getAll();
+    Object.keys(messages).length && store.dispatch('message/recoverMessages', { messages });
   }
 
   // 保存消息
   public async save(messages: MessageRecord[]) {
-    const [,data = {}] = await this.getAll();
+    const data = await this.getAll();
 
     messages.forEach(message => {
       const { dist_id, user_id, is_owner } = message;
@@ -26,29 +28,63 @@ class Message {
       } else {
         !localItem.find(l => l.hash === message.hash) && localItem.push(message);
       }
-      data[friend_id] = localItem;
+      // 只存储100条对话
+      data[friend_id] = localItem.slice(-100);
     });
     this.saveAll(data);
   }
 
+  // 更新消息id
+  public async update({ messages }: { messages: { id: number, hash: string, friend_id: number } }) {
+    const list = await this.getAll();
+    const { id, hash, friend_id } = messages;
+    const msg = list[friend_id];
+    if (!msg) {
+      return;
+    }
+    list[friend_id] = msg.map(m => {
+      if (m.hash === hash) {
+        m.id = id;
+      }
+      return m;
+    });
+    this.saveAll(list);
+  }
+
   private async saveAll(data: LocalMessages) {
-    return uni.getStorage({ key: this.key, data })
+    return uni.setStorage({ key: this.key, data });
   }
 
   private async getAll() {
-    return uni.getStorage({ key: this.key });
+    const [,data = {}] = await uni.getStorage({ key: this.key });
+    return data.data || {};
   }
 
-  private async getItem(id: number) {
-    const [,data] = await this.getAll();
-    if (!data || !data[id]) return [];
-    return data[id];
-  }
-  
 }
 
 class Contacts {
+  private key = 'local_recent_contacts';
+   // 从本地存储中恢复数据
+   public async recover() {
+    const list = await this.getAll();
+    list.length && store.dispatch('user/setFullRecentContacts', { list });
+  }
 
+  // 保存消息
+  public async save(id: number) {
+    const data = await this.getAll();
+
+    this.saveAll(Array.from(new Set([id, ...data])));
+  }
+
+  private async saveAll(data: LocalMessages) {
+    return uni.setStorage({ key: this.key, data });
+  }
+
+  private async getAll() {
+    const [,data = {}] = await uni.getStorage({ key: this.key });
+    return data.data || [];
+  }
 }
 
 export default {
