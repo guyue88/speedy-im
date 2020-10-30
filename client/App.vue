@@ -1,13 +1,17 @@
-<script>
+<script lang="ts">
+import Storage from './helper/storage';
+
 export default {
   name: "Root",
-  onLaunch: function() {
+  async onLaunch() {
     console.log("App Launch");
+    await Storage.contacts.recover();
+    await Storage.message.recover();
   },
-  onShow: function() {
+  onShow() {
     console.log("App Show");
   },
-  onHide: function() {
+  onHide() {
     console.log("App Hide");
   }
 };
