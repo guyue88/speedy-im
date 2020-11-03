@@ -9,8 +9,6 @@
 
 基于`uni-app` + `@hyoga/uni-socket.io` + `express` + `mysql`开发高性能的即时通讯系统。已支持点对点通讯，计划支持群组通讯、上下线等事件消息等众多功能。
 
-正在持续开发中，目前仅部分UI开发完成。
-
 ## DEMO
 
 [IM.apk](https://im.wangcai.me/__UNI__0CE1D62_1030114757.apk) ，已有基础UI以及登陆、点到点聊天等功能。
@@ -99,7 +97,7 @@ $ yarn
 * [x] [通讯录](#通讯录)
 * [x] [登录](#登录)
 * [x] [注册](#注册)
-* [x] [我的信息](#我的信息)
+* [ ] [我的信息](#我的信息)
 * [ ] [好友信息](#好友信息)
 
 ## 联系作者
@@ -107,5 +105,5 @@ $ yarn
 - [qq群](https://jq.qq.com/?_wv=1027&k=9f25XGCW)
 - 公众号，欢迎关注，不定时更新
 
-![前端小白菜](https://i.loli.net/2020/05/28/CNcjhm17d9zfvkQ.jpg)
+![前端方程式](https://i.loli.net/2020/05/28/CNcjhm17d9zfvkQ.jpg)
 
