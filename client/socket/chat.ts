@@ -8,10 +8,6 @@ import { User, FriendInfo, Message, MessageRecord } from '../interface/entity';
 import store from "../store";
 import Storage from '../helper/storage';
 
-interface Options {
-  token: string;
-}
-
 declare let uni: any;
 const { ws } = config;
 
