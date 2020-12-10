@@ -1,22 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Speedy IM即时通讯</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
+  <meta name="description" content="基于uni-app与uni-socket.io的开发的开源即时通讯项目。">
+  <meta name="keywords" content="uni-app,socket.io,uni-socket.io,开源,即时通讯项目,开源通讯项目。">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <style>
+    .sidebar .app-name .app-name-link img {
+      width: 150px;
+      height: 150px;
+    }
+  </style>
 </head>
+
 <body>
   <div id="app"></div>
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank">粤ICP备2020129570号</a>
+  </div>
   <script>
     window.$docsify = {
-      name: '',
-      repo: ''
+      name: 'Speedy IM即时通讯',
+      repo: 'https://github.com/AspenLuoQiang/speedy-im',
+      auto2top: true,
+      logo: '/logo.png',
+      routerMode: 'history',
+      plugins: [
+        function (hook) {
+          var footer = [
+            '<hr/>',
+            '<footer>',
+            '<span>copyright &copy;<a href="https://github.com/AspenLuoQiang">luoqiang</a> 2020-2021. </span>',
+            '<span><a href="http://beian.miit.gov.cn/" target="_blank">粤ICP备2020129570号</a></span>',
+            '</footer>'
+          ].join('');
+
+          hook.afterEach(function (html) {
+            return html + footer;
+          });
+        }
+      ]
     }
   </script>
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
 </body>
+
 </html>
