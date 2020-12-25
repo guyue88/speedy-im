@@ -1,7 +1,7 @@
 export default {
-  baseUrl: 'http://speedy-im.luodao.me/api',
+  baseUrl: 'http://app.speedy-im.com/api',
   ws: {
-    host: 'http://speedy-im.luodao.me',
+    host: 'http://app.speedy-im.com',
     namespace: 'chat',
   },
-}
+};

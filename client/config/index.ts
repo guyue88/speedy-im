@@ -11,9 +11,9 @@ const configMap = {
 };
 
 const defaults = {
-  baseUrl: 'http://10.12.173.237:8360/api',
+  baseUrl: 'http://10.12.174.77:8360/api',
   ws: {
-    host: 'http://10.12.173.237:8360',
+    host: 'http://10.12.174.77:8360',
     namespace: 'chat',
   },
 };
